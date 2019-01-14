@@ -28,6 +28,8 @@ namespace TopDownShooter
         public static ContentManager content;
         public static SpriteBatch spriteBatch;
 
+        public static Effect normalEffect;
+
         public static JPKeyboard keyboard;
         public static JPMouseControl mouse;
 

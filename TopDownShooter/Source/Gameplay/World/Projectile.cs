@@ -75,6 +75,13 @@ namespace TopDownShooter
 
         public override void Draw(Vector2 Offset)
         {
+            Globals.normalEffect.Parameters["xSize"].SetValue((float)texture.Bounds.Width);
+            Globals.normalEffect.Parameters["ySize"].SetValue((float)texture.Bounds.Height);
+            Globals.normalEffect.Parameters["xDraw"].SetValue((float)((int)dims.X));
+            Globals.normalEffect.Parameters["yDraw"].SetValue((float)((int)dims.Y));
+            Globals.normalEffect.Parameters["filterColor"].SetValue(Color.White.ToVector4());
+            Globals.normalEffect.CurrentTechnique.Passes[0].Apply();
+
             base.Draw(Offset);
         }
     }

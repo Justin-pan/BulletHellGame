@@ -25,3 +25,9 @@
 /processorParam:TextureFormat=Color
 /build:2d/Hero.png
 
+#begin Shaders/2d Shaders/NormalFlat.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/2d Shaders/NormalFlat.fx
+

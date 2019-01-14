@@ -38,7 +38,18 @@ namespace TopDownShooter
 
         public virtual void Draw(Vector2 Offset)
         {
+            Globals.normalEffect.Parameters["xSize"].SetValue(1.0f);
+            Globals.normalEffect.Parameters["ySize"].SetValue(1.0f);
+            Globals.normalEffect.Parameters["xDraw"].SetValue(1.0f);
+            Globals.normalEffect.Parameters["yDraw"].SetValue(1.0f);
+            Globals.normalEffect.Parameters["filterColor"].SetValue(Color.Black.ToVector4());
+            Globals.normalEffect.CurrentTechnique.Passes[0].Apply();
+
             barBKG.Draw(Offset, new Vector2(0, 0), Color.Black);
+
+            Globals.normalEffect.Parameters["filterColor"].SetValue(Color.Red.ToVector4());
+            Globals.normalEffect.CurrentTechnique.Passes[0].Apply();
+
             bar.Draw(Offset + new Vector2(border, border), new Vector2(0, 0), color);
         }
 

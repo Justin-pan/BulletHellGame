@@ -58,6 +58,8 @@ namespace TopDownShooter
 
             cursor = new Basic2d("2d\\Misc\\CursorArrow", new Vector2(0, 0), new Vector2(28, 28));
 
+            Globals.normalEffect = Globals.content.Load<Effect>("Effects\\BaseShader");
+
             Globals.keyboard = new JPKeyboard();
             Globals.mouse = new JPMouseControl();
 
@@ -110,7 +112,7 @@ namespace TopDownShooter
             // TODO: Add your drawing code here
             // Try to run no logic in this function
 
-            Globals.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+            Globals.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 
 
             gamePlay.Draw();
