@@ -11,7 +11,7 @@ namespace TopDownShooter
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        World world;
+        GamePlay gamePlay;
 
         Basic2d cursor;
 
@@ -61,7 +61,7 @@ namespace TopDownShooter
             Globals.keyboard = new JPKeyboard();
             Globals.mouse = new JPMouseControl();
 
-            world = new World();
+            gamePlay = new GamePlay();
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace TopDownShooter
             Globals.keyboard.Update();
             Globals.mouse.Update();
 
-            world.Update();
+            gamePlay.Update();
 
             Globals.keyboard.UpdateOld();
             Globals.mouse.UpdateOld();
@@ -113,7 +113,7 @@ namespace TopDownShooter
             Globals.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
 
-            world.Draw(Vector2.Zero);
+            gamePlay.Draw();
 
             cursor.Draw(new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y), new Vector2(0, 0), Color.White);
             Globals.spriteBatch.End();

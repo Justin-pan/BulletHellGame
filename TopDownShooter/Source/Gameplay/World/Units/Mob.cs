@@ -23,14 +23,14 @@ namespace TopDownShooter
             speed = 2.0f;
         }
 
-        public virtual void Update(Vector2 Offset, Hero Hero)
+        public override void Update(Vector2 Offset, Player Enemy)
         {
-            AI(Offset, Hero);
+            AI(Enemy.hero);
 
             base.Update(Offset);
         }
 
-        public virtual void AI(Vector2 Offset, Hero Hero)
+        public virtual void AI(Hero Hero)
         {
             pos += Globals.RadialMovement(Hero.pos, pos, speed);
             rot = Globals.RotateTowards(pos, Hero.pos);

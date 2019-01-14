@@ -32,7 +32,7 @@ namespace TopDownShooter
             hitDist = 35.0f;
         }
 
-        public override void Update(Vector2 Offset)
+        public virtual void Update(Vector2 Offset, Player Enemy)
         {
 
             base.Update(Offset);
