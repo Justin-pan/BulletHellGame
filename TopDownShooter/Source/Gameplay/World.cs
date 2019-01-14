@@ -34,10 +34,11 @@ namespace TopDownShooter
 
             GameGlobals.PassProjectile = AddProjectile;
             GameGlobals.PassMob = AddMob;
+            GameGlobals.PassSpawnPoint = AddSpawnPoint;
             GameGlobals.CheckScroll = CheckScroll;
 
-            user = new User();
-            aiPlayer = new AIPlayer();
+            user = new User(1);
+            aiPlayer = new AIPlayer(2);
 
             offset = new Vector2(0, 0);
 
@@ -75,12 +76,35 @@ namespace TopDownShooter
 
         public virtual void AddMob(object Info)
         {
-            aiPlayer.AddUnit((Mob)Info);
+            Unit tempUnit = (Unit)Info;
+
+            if (user.id == tempUnit.ownerId)
+            {
+                user.AddUnit(tempUnit);
+            }
+            else if(aiPlayer.id == tempUnit.ownerId)
+            {
+                aiPlayer.AddUnit(tempUnit);
+            }
         }
 
         public virtual void AddProjectile(object Info)
         {
             projectiles.Add((Projectile)Info);
+        }
+
+        public virtual void AddSpawnPoint(object Info)
+        {
+            SpawnPoint tempSpawnPoint = (SpawnPoint)Info;
+
+            if (user.id == tempSpawnPoint.ownerId)
+            {
+                user.AddSpawnPoint(tempSpawnPoint);
+            }
+            else if (aiPlayer.id == tempSpawnPoint.ownerId)
+            {
+                aiPlayer.AddSpawnPoint(tempSpawnPoint);
+            }
         }
 
         public virtual void CheckScroll(object Info)

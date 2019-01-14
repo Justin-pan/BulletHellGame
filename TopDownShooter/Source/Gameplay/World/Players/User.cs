@@ -17,9 +17,9 @@ namespace TopDownShooter
 {
     public class User : Player
     {
-        public User() : base()
+        public User(int Id) : base(Id)
         {
-            hero = new Hero("2d\\Units\\Hero", new Vector2(300, 300), new Vector2(64, 64));
+            hero = new Hero("2d\\Units\\Hero", new Vector2(300, 300), new Vector2(64, 64), id);
         }
 
         public override void Update(Player Enemy, Vector2 Offset)

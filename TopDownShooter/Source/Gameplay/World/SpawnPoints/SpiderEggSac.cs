@@ -15,36 +15,38 @@ using System.Threading.Tasks;
 
 namespace TopDownShooter
 {
-    public class SpawnPoint : DestructibleObject
+    public class SpiderEggSac : SpawnPoint
     {
 
-        public JPTimer spawnTimer = new JPTimer(2200);
+        int maxSpawns, totalSpawns;
 
-        public SpawnPoint(string Path, Vector2 Pos, Vector2 Dims, int OwnerId) : base(Path, Pos, Dims, OwnerId)
+        public SpiderEggSac(Vector2 Pos, int OwnerId) : base("2d\\SpawnPoints\\EggSac", Pos, new Vector2(45, 45), OwnerId)
         {
-            dead = false;
-
-            health = 3;
-            healthMax = health;
-
-            hitDist = 35.0f;
+            totalSpawns = 0;
+            maxSpawns = 3;
         }
 
         public override void Update(Vector2 Offset)
         {
-            spawnTimer.UpdateTimer();
-            if (spawnTimer.Test())
-            {
-                SpawnMob();
-                spawnTimer.ResetToZero();
-            }
 
             base.Update(Offset);
         }
 
-        public virtual void SpawnMob()
+        public override void SpawnMob()
         {
-            GameGlobals.PassMob(new Imp(new Vector2(pos.X, pos.Y), ownerId));
+
+            Mob tempMob = new Spiderling(new Vector2(pos.X, pos.Y), ownerId);
+
+            if(tempMob != null)
+            {
+                GameGlobals.PassMob(tempMob);
+
+                totalSpawns++;
+                if(totalSpawns >= maxSpawns)
+                {
+                    dead = true;
+                }
+            }
         }
 
         public override void Draw(Vector2 Offset)

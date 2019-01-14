@@ -15,36 +15,40 @@ using System.Threading.Tasks;
 
 namespace TopDownShooter
 {
-    public class SpawnPoint : DestructibleObject
+    public class DestructibleObject : Basic2d
     {
+        public bool dead;
 
-        public JPTimer spawnTimer = new JPTimer(2200);
+        public int ownerId;
 
-        public SpawnPoint(string Path, Vector2 Pos, Vector2 Dims, int OwnerId) : base(Path, Pos, Dims, OwnerId)
+        public float speed, hitDist, health, healthMax;
+
+        public DestructibleObject(string Path, Vector2 Pos, Vector2 Dims, int OwnerId) : base(Path, Pos, Dims)
         {
+            ownerId = OwnerId;
             dead = false;
+            speed = 2.0f;
 
-            health = 3;
+            health = 1;
             healthMax = health;
 
             hitDist = 35.0f;
         }
 
-        public override void Update(Vector2 Offset)
+        public virtual void Update(Vector2 Offset, Player Enemy)
         {
-            spawnTimer.UpdateTimer();
-            if (spawnTimer.Test())
-            {
-                SpawnMob();
-                spawnTimer.ResetToZero();
-            }
 
             base.Update(Offset);
         }
 
-        public virtual void SpawnMob()
+        public virtual void GetHit(float Damage)
         {
-            GameGlobals.PassMob(new Imp(new Vector2(pos.X, pos.Y), ownerId));
+            health -= Damage;
+
+            if(health <= 0)
+            {
+                dead = true;
+            }
         }
 
         public override void Draw(Vector2 Offset)

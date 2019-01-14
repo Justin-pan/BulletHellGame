@@ -15,36 +15,40 @@ using System.Threading.Tasks;
 
 namespace TopDownShooter
 {
-    public class SpawnPoint : DestructibleObject
+    public class Portal : SpawnPoint
     {
 
-        public JPTimer spawnTimer = new JPTimer(2200);
 
-        public SpawnPoint(string Path, Vector2 Pos, Vector2 Dims, int OwnerId) : base(Path, Pos, Dims, OwnerId)
+        public Portal(Vector2 Pos, int OwnerId) : base("2d\\SpawnPoints\\Portal", Pos, new Vector2(45, 45), OwnerId)
         {
-            dead = false;
 
-            health = 3;
-            healthMax = health;
-
-            hitDist = 35.0f;
         }
 
         public override void Update(Vector2 Offset)
         {
-            spawnTimer.UpdateTimer();
-            if (spawnTimer.Test())
-            {
-                SpawnMob();
-                spawnTimer.ResetToZero();
-            }
 
             base.Update(Offset);
         }
 
-        public virtual void SpawnMob()
+        public override void SpawnMob()
         {
-            GameGlobals.PassMob(new Imp(new Vector2(pos.X, pos.Y), ownerId));
+            int num = Globals.rand.Next(0, 10 + 1);
+
+            Mob tempMob = null;
+
+            if (num < 5)
+            {
+                tempMob = new Imp(new Vector2(pos.X, pos.Y), ownerId);
+            }
+            else if (num < 8)
+            {
+                tempMob = new Spider(new Vector2(pos.X, pos.Y), ownerId);
+            }
+
+            if (tempMob != null)
+            {
+                GameGlobals.PassMob(tempMob);
+            }
         }
 
         public override void Draw(Vector2 Offset)

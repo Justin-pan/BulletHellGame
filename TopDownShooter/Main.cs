@@ -32,8 +32,8 @@ namespace TopDownShooter
             // TODO: Add your initialization logic here
             // Initializing settings or getting resolution
 
-            Globals.screenHeight = 500;
-            Globals.screenWidth = 800;
+            Globals.screenHeight = 1000;
+            Globals.screenWidth = 900;
 
             graphics.PreferredBackBufferHeight = Globals.screenHeight;
             graphics.PreferredBackBufferWidth = Globals.screenWidth;

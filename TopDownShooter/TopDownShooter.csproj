@@ -59,9 +59,14 @@
     <Compile Include="Source\Gameplay\World\Projectile.cs" />
     <Compile Include="Source\Gameplay\World\Projectiles\Fireball.cs" />
     <Compile Include="Source\Gameplay\World\SpawnPoint.cs" />
+    <Compile Include="Source\Gameplay\World\SpawnPoints\SpiderEggSac.cs" />
+    <Compile Include="Source\Gameplay\World\SpawnPoints\Portal.cs" />
     <Compile Include="Source\Gameplay\World\UI.cs" />
+    <Compile Include="Source\Gameplay\World\DestructibleObject.cs" />
     <Compile Include="Source\Gameplay\World\Unit.cs" />
     <Compile Include="Source\Gameplay\World\Units\Mob.cs" />
+    <Compile Include="Source\Gameplay\World\Units\Mobs\Spiderling.cs" />
+    <Compile Include="Source\Gameplay\World\Units\Mobs\Spider.cs" />
     <Compile Include="Source\Gameplay\World\Units\Mobs\Imp.cs" />
     <Compile Include="Source\Gameplay\World\Units\Hero.cs" />
   </ItemGroup>

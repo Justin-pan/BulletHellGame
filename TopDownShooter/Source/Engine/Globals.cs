@@ -23,6 +23,8 @@ namespace TopDownShooter
     {
         public static int screenHeight, screenWidth;
 
+        public static Random rand = new Random();
+
         public static ContentManager content;
         public static SpriteBatch spriteBatch;
 

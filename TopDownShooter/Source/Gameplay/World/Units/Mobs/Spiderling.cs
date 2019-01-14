@@ -15,18 +15,19 @@ using System.Threading.Tasks;
 
 namespace TopDownShooter
 {
-    public class Unit : DestructibleObject
+    public class Spiderling : Mob
     {
 
-        public Unit(string Path, Vector2 Pos, Vector2 Dims, int OwnerId) : base(Path, Pos, Dims, OwnerId)
-        {
 
+        public Spiderling(Vector2 Pos, int OwnerId) : base("2d\\Units\\Mobs\\Spider", Pos, new Vector2(20, 20), OwnerId)
+        {
+            speed = 3.0f;    
         }
 
         public override void Update(Vector2 Offset, Player Enemy)
         {
 
-            base.Update(Offset);
+            base.Update(Offset, Enemy);
         }
 
         public override void Draw(Vector2 Offset)

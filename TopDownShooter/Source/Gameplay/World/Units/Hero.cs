@@ -18,7 +18,7 @@ namespace TopDownShooter
     public class Hero : Unit
     {
 
-        public Hero(string Path, Vector2 Pos, Vector2 Dims) : base(Path, Pos, Dims)
+        public Hero(string Path, Vector2 Pos, Vector2 Dims, int OwnerId) : base(Path, Pos, Dims, OwnerId)
         {
             speed = 2.0f;
 
