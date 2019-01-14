@@ -15,18 +15,26 @@ using System.Threading.Tasks;
 
 namespace TopDownShooter
 {
-    public class User : Player
+    public class Tower : Building
     {
-        public User(int Id) : base(Id)
-        {
-            hero = new Hero("2d\\Units\\Hero", new Vector2(300, 300), new Vector2(64, 64), id);
 
-            buildings.Add(new Tower(new Vector2(Globals.screenWidth / 2, Globals.screenHeight / 2 - 40), id));
+        public Tower(Vector2 Pos, int OwnerId) : base("2d\\Building\\Tower", Pos, new Vector2(45, 45), OwnerId)
+        {
+            health = 30;
+            healthMax = health;
+
+            hitDist = 35.0f;
         }
 
-        public override void Update(Player Enemy, Vector2 Offset)
+        public override void Update(Vector2 Offset, Player Enemy)
         {
-            base.Update(Enemy, Offset);
+
+            base.Update(Offset);
+        }
+
+        public override void Draw(Vector2 Offset)
+        {
+            base.Draw(Offset);
         }
     }
 }

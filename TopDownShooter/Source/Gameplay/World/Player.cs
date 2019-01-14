@@ -21,6 +21,7 @@ namespace TopDownShooter
         public Hero hero;
         public List<Unit> units = new List<Unit>();
         public List<SpawnPoint> spawnPoints = new List<SpawnPoint>();
+        public List<Building> buildings = new List<Building>();
 
         public Player(int Id)
         {
@@ -57,6 +58,17 @@ namespace TopDownShooter
                 }
             }
 
+            for (int i = 0; i < buildings.Count; i++)
+            {
+                buildings[i].Update(Offset, Enemy);
+
+                if (buildings[i].dead)
+                {
+                    buildings.RemoveAt(i);
+                    i--;
+                }
+            }
+
         }
 
         public virtual void AddUnit(object Info)
@@ -78,6 +90,16 @@ namespace TopDownShooter
             GameGlobals.score += Score;
         }
 
+        public virtual List<DestructibleObject> GetAllObjects()
+        {
+            List<DestructibleObject> tempObjects = new List<DestructibleObject>();
+            tempObjects.AddRange(units.ToList<DestructibleObject>());
+            tempObjects.AddRange(spawnPoints.ToList<DestructibleObject>());
+            tempObjects.AddRange(buildings.ToList<DestructibleObject>());
+
+            return tempObjects;
+        }
+
         public virtual void Draw(Vector2 Offset)
         {
             if(hero != null)
@@ -88,6 +110,11 @@ namespace TopDownShooter
             for (int i = 0; i < units.Count; i++)
             {
                 units[i].Draw(Offset);
+            }
+
+            for (int i = 0; i < buildings.Count; i++)
+            {
+                buildings[i].Draw(Offset);
             }
 
             for (int i = 0; i < spawnPoints.Count; i++)

@@ -18,7 +18,7 @@ namespace TopDownShooter
     public class SpawnPoint : DestructibleObject
     {
 
-        public JPTimer spawnTimer = new JPTimer(2200);
+        public JPTimer spawnTimer = new JPTimer(2400);
 
         public SpawnPoint(string Path, Vector2 Pos, Vector2 Dims, int OwnerId) : base(Path, Pos, Dims, OwnerId)
         {

@@ -53,6 +53,7 @@
     <Compile Include="Source\GamePlay.cs" />
     <Compile Include="Source\Gameplay\World.cs" />
     <Compile Include="Source\Engine\Globals.cs" />
+    <Compile Include="Source\Gameplay\World\Buildings\Tower.cs" />
     <Compile Include="Source\Gameplay\World\Player.cs" />
     <Compile Include="Source\Gameplay\World\Players\AIPlayer.cs" />
     <Compile Include="Source\Gameplay\World\Players\User.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Source\Gameplay\World\SpawnPoints\Portal.cs" />
     <Compile Include="Source\Gameplay\World\UI.cs" />
     <Compile Include="Source\Gameplay\World\DestructibleObject.cs" />
+    <Compile Include="Source\Gameplay\World\Building.cs" />
     <Compile Include="Source\Gameplay\World\Unit.cs" />
     <Compile Include="Source\Gameplay\World\Units\Mob.cs" />
     <Compile Include="Source\Gameplay\World\Units\Mobs\Spiderling.cs" />

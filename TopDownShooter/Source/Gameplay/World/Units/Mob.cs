@@ -25,20 +25,20 @@ namespace TopDownShooter
 
         public override void Update(Vector2 Offset, Player Enemy)
         {
-            AI(Enemy.hero);
+            AI(Enemy);
 
             base.Update(Offset);
         }
 
-        public virtual void AI(Hero Hero)
+        public virtual void AI(Player Enemy)
         {
-            pos += Globals.RadialMovement(Hero.pos, pos, speed);
-            rot = Globals.RotateTowards(pos, Hero.pos);
+            pos += Globals.RadialMovement(Enemy.hero.pos, pos, speed);
+            rot = Globals.RotateTowards(pos, Enemy.hero.pos);
 
-            if (Globals.GetDistance(pos, Hero.pos) < 15)
+            if (Globals.GetDistance(pos, Enemy.hero.pos) < 15)
             {
                 //can create a var in the specific mob class to change damage amounts and override
-                Hero.GetHit(1);
+                Enemy.hero.GetHit(1);
                 dead = true;
             }
         }

@@ -18,7 +18,6 @@ namespace TopDownShooter
     public class Spiderling : Mob
     {
 
-
         public Spiderling(Vector2 Pos, int OwnerId) : base("2d\\Units\\Mobs\\Spider", Pos, new Vector2(20, 20), OwnerId)
         {
             speed = 3.0f;    
@@ -28,6 +27,32 @@ namespace TopDownShooter
         {
 
             base.Update(Offset, Enemy);
+        }
+
+        public override void AI(Player Enemy)
+        {
+            Building temp = null;
+            for (int i = 0; i < Enemy.buildings.Count; i++)
+            {
+                if (Enemy.buildings[i].GetType().ToString() == "TopDownShooter.Tower")
+                {
+                    temp = Enemy.buildings[i];
+                }
+            }
+
+            if (temp != null)
+            {
+                pos += Globals.RadialMovement(temp.pos, pos, speed);
+                rot = Globals.RotateTowards(pos, temp.pos);
+
+                if (Globals.GetDistance(pos, temp.pos) < 15)
+                {
+                    //can create a var in the specific mob class to change damage amounts and override
+                    temp.GetHit(1);
+                    dead = true;
+                }
+            }
+            
         }
 
         public override void Draw(Vector2 Offset)

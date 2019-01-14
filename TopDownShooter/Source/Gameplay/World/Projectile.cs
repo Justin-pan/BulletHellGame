@@ -40,10 +40,10 @@ namespace TopDownShooter
 
             rot = Globals.RotateTowards(pos, new Vector2(Target.X, Target.Y));
 
-            timer = new JPTimer(1200);
+            timer = new JPTimer(1600);
         }
 
-        public virtual void Update(Vector2 Offset, List<Unit> Units)
+        public virtual void Update(Vector2 Offset, List<DestructibleObject> Units)
         {
             pos += direction * speed;
 
@@ -59,11 +59,11 @@ namespace TopDownShooter
             }
         }
         
-        public virtual bool HitSomething(List<Unit> Units) 
+        public virtual bool HitSomething(List<DestructibleObject> Units) 
         {
             for (int i = 0; i < Units.Count; i++)
             {
-                if (Globals.GetDistance(pos, Units[i].pos) < Units[i].hitDist)
+                if (owner.ownerId != Units[i].ownerId && Globals.GetDistance(pos, Units[i].pos) < Units[i].hitDist)
                 {
                     Units[i].GetHit(1);
                     return true;

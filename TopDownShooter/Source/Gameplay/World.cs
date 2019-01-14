@@ -25,6 +25,7 @@ namespace TopDownShooter
         public AIPlayer aiPlayer;
 
         public List<Projectile> projectiles = new List<Projectile>();
+        public List<DestructibleObject> allObjects = new List<DestructibleObject>();
 
         PassObject resetWorld;
         
@@ -47,25 +48,29 @@ namespace TopDownShooter
 
         public virtual void Update()
         {
-            if (!user.hero.dead) {
+            if (!user.hero.dead && user.buildings.Count > 0) {
+
+                allObjects.Clear();
+                allObjects.AddRange(user.GetAllObjects());
+                allObjects.AddRange(aiPlayer.GetAllObjects());
 
                 user.Update(aiPlayer, offset);
                 aiPlayer.Update(user, offset);
 
                 for (int i = 0; i < projectiles.Count; i++)
                 {
-                    projectiles[i].Update(offset, aiPlayer.units.ToList<Unit>());
+                    projectiles[i].Update(offset, allObjects);
 
                     if (projectiles[i].done)
                     {
                         projectiles.RemoveAt(i);
                         i--;
                     }
-                }               
+                }
             }
             else
             {
-                if (Globals.keyboard.GetPress("Enter"))
+                if (Globals.keyboard.GetPress("Enter") && (user.hero.dead || user.buildings.Count <= 0))
                 {
                     resetWorld(null);
                 }

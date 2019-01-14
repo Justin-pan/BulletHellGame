@@ -43,7 +43,7 @@ namespace TopDownShooter
 
             healthBar.Draw(new Vector2(20, Globals.screenHeight - 40));
 
-            if (World.user.hero.dead)
+            if (World.user.hero.dead || World.user.buildings.Count <= 0)
             {
                 tempStr = "Press Enter to Restart";
                 strDims = font.MeasureString(tempStr);

@@ -21,6 +21,8 @@ namespace TopDownShooter
 
         public Portal(Vector2 Pos, int OwnerId) : base("2d\\SpawnPoints\\Portal", Pos, new Vector2(45, 45), OwnerId)
         {
+            health = 15;
+            healthMax = health;
 
         }
 
