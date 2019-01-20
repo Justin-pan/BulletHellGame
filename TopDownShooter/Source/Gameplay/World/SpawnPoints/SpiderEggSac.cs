@@ -20,7 +20,7 @@ namespace TopDownShooter
 
         int maxSpawns, totalSpawns;
 
-        public SpiderEggSac(Vector2 Pos, int OwnerId) : base("2d\\SpawnPoints\\EggSac", Pos, new Vector2(45, 45), OwnerId)
+        public SpiderEggSac(Vector2 Pos, int OwnerId, XElement Data) : base("2d\\SpawnPoints\\EggSac", Pos, new Vector2(45, 45), OwnerId, Data)
         {
             totalSpawns = 0;
             maxSpawns = 3;

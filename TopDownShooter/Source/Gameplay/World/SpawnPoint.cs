@@ -17,15 +17,18 @@ namespace TopDownShooter
 {
     public class SpawnPoint : DestructibleObject
     {
+        public List<MobChoice> mobChoices = new List<MobChoice>();
 
         public JPTimer spawnTimer = new JPTimer(2400);
 
-        public SpawnPoint(string Path, Vector2 Pos, Vector2 Dims, int OwnerId) : base(Path, Pos, Dims, OwnerId)
+        public SpawnPoint(string Path, Vector2 Pos, Vector2 Dims, int OwnerId, XElement Data) : base(Path, Pos, Dims, OwnerId)
         {
             dead = false;
 
             health = 3;
             healthMax = health;
+
+            LoadData(Data);
 
             hitDist = 35.0f;
         }
@@ -45,6 +48,24 @@ namespace TopDownShooter
         public virtual void SpawnMob()
         {
             GameGlobals.PassMob(new Imp(new Vector2(pos.X, pos.Y), ownerId));
+        }
+
+        public virtual void LoadData(XElement Data)
+        {
+            if(Data != null)
+            {
+                spawnTimer.AddToTimer(Convert.ToInt32(Data.Element("timerAdd").Value, Globals.culture));
+
+
+                List<XElement> mobList = (from t in Data.Descendants("mob")
+                                            select t).ToList<XElement>();
+
+
+                for (int i = 0; i < mobList.Count; i++)
+                {
+                    mobChoices.Add(new MobChoice(mobList[i].Value, Convert.ToInt32(mobList[i].Attribute("rate").Value, Globals.culture)));
+                }
+            }
         }
 
         public override void Draw(Vector2 Offset)

@@ -22,14 +22,18 @@
         <x>40</x>
         <y>40</y>
       </Pos>
+      <mob rate = "50">Imp</mob>
+      <mob rate = "20">Spider</mob>
       <timerAdd>1000</timerAdd>
     </SpawnPoint>
-     <SpawnPoint>
+    <SpawnPoint>
       <type>Portal</type>
       <Pos>
         <x>600</x>
         <y>40</y>
       </Pos>
+      <mob rate = "50">Imp</mob>
+      <mob rate = "30">Spider</mob>
       <timerAdd>500</timerAdd>
     </SpawnPoint>
     <SpawnPoint>
@@ -38,6 +42,8 @@
         <x>1160</x>
         <y>40</y>
       </Pos>
+      <mob rate = "50">Imp</mob>
+      <mob rate = "40">Spider</mob>
       <timerAdd>0</timerAdd>
     </SpawnPoint>
   </AIPlayer>

@@ -60,6 +60,7 @@
     <Compile Include="Source\Gameplay\World\Projectile.cs" />
     <Compile Include="Source\Gameplay\World\Projectiles\Fireball.cs" />
     <Compile Include="Source\Gameplay\World\SpawnPoint.cs" />
+    <Compile Include="Source\Gameplay\World\SpawnPoints\MobChoice.cs" />
     <Compile Include="Source\Gameplay\World\SpawnPoints\SpiderEggSac.cs" />
     <Compile Include="Source\Gameplay\World\SpawnPoints\Portal.cs" />
     <Compile Include="Source\Gameplay\World\UI.cs" />

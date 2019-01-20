@@ -19,7 +19,7 @@ namespace TopDownShooter
     {
 
 
-        public Portal(Vector2 Pos, int OwnerId) : base("2d\\SpawnPoints\\Portal", Pos, new Vector2(45, 45), OwnerId)
+        public Portal(Vector2 Pos, int OwnerId, XElement Data) : base("2d\\SpawnPoints\\Portal", Pos, new Vector2(45, 45), OwnerId, Data)
         {
             health = 15;
             healthMax = health;
@@ -34,18 +34,25 @@ namespace TopDownShooter
 
         public override void SpawnMob()
         {
-            int num = Globals.rand.Next(0, 10 + 1);
+            int num = Globals.rand.Next(0, 100 + 1);
 
             Mob tempMob = null;
+            int total = 0;
 
-            if (num < 5)
+            for (int i = 0; i < mobChoices.Count; i++)
             {
-                tempMob = new Imp(new Vector2(pos.X, pos.Y), ownerId);
+                total += mobChoices[i].rate;
+
+                if (num < total)
+                {
+                    Type sType = Type.GetType("TopDownShooter." + mobChoices[i].mobStr, true);
+
+                    tempMob = (Mob)(Activator.CreateInstance(sType, new Vector2(pos.X, pos.Y), ownerId));
+
+                    break;
+                }
             }
-            else if (num < 8)
-            {
-                tempMob = new Spider(new Vector2(pos.X, pos.Y), ownerId);
-            }
+
 
             if (tempMob != null)
             {
