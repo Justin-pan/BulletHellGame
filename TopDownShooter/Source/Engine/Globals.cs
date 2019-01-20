@@ -25,6 +25,8 @@ namespace TopDownShooter
 
         public static Random rand = new Random();
 
+        public static System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-CA");
+
         public static ContentManager content;
         public static SpriteBatch spriteBatch;
 

@@ -38,10 +38,9 @@ namespace TopDownShooter
             GameGlobals.PassSpawnPoint = AddSpawnPoint;
             GameGlobals.CheckScroll = CheckScroll;
 
-            user = new User(1);
-            aiPlayer = new AIPlayer(2);
-
             offset = new Vector2(0, 0);
+
+            LoadData(1);
 
             ui = new UI();
         }
@@ -134,6 +133,30 @@ namespace TopDownShooter
             {
                 offset = new Vector2(offset.X, offset.Y - user.hero.speed * 2);
             }
+        }
+
+        public virtual void LoadData(int Level)
+        {
+            XDocument xml = XDocument.Load("XML\\Levels\\Level"+Level+".xml");
+
+            XElement tempElement = null;
+
+            if (xml.Element("Root").Element("User") != null)
+            {
+                tempElement = xml.Element("Root").Element("User");
+            }
+
+            user = new User(1, tempElement);
+
+
+            tempElement = null;
+
+            if (xml.Element("Root").Element("AIPlayer") != null)
+            {
+                tempElement = xml.Element("Root").Element("AIPlayer");
+            }
+
+            aiPlayer = new AIPlayer(2, tempElement);
         }
 
         public virtual void Draw(Vector2 Offset)

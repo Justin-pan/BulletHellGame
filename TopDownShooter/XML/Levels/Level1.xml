@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Root>
+  <User>
+    <Hero>
+      <Pos>
+        <x>800</x>
+        <y>600</y>
+      </Pos>
+    </Hero>
+    <Building>
+      <type>Tower</type>
+      <Pos>
+        <x>800</x>
+        <y>700</y>
+      </Pos>
+    </Building>
+  </User>
+  <AIPlayer>
+    <SpawnPoint>
+      <type>Portal</type>
+      <Pos>
+        <x>40</x>
+        <y>40</y>
+      </Pos>
+      <timerAdd>1000</timerAdd>
+    </SpawnPoint>
+     <SpawnPoint>
+      <type>Portal</type>
+      <Pos>
+        <x>600</x>
+        <y>40</y>
+      </Pos>
+      <timerAdd>500</timerAdd>
+    </SpawnPoint>
+    <SpawnPoint>
+      <type>Portal</type>
+      <Pos>
+        <x>1160</x>
+        <y>40</y>
+      </Pos>
+      <timerAdd>0</timerAdd>
+    </SpawnPoint>
+  </AIPlayer>
+</Root>
