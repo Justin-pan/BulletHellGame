@@ -39,6 +39,7 @@ namespace TopDownShooter
 
         public virtual void ResetWorld(object INFO)
         {
+            GameGlobals.score = 0;
             world = new World(ResetWorld);
         }
 

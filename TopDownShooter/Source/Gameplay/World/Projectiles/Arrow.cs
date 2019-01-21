@@ -15,12 +15,14 @@ using System.Threading.Tasks;
 
 namespace TopDownShooter
 {
-    public class Fireball : Projectile
+    public class Arrow : Projectile
     {
 
-        public Fireball(Vector2 Pos, DestructibleObject Owner, Vector2 Target) : base("2d\\Projectiles\\Fireball", Pos, new Vector2(20, 20), Owner, Target)
+        public Arrow(Vector2 Pos, DestructibleObject Owner, Vector2 Target) : base("2d\\Projectiles\\Arrow", Pos, new Vector2(10, 20), Owner, Target)
         {
+            speed = 9.0f;
 
+            timer = new JPTimer(1000);
         }
 
         public override void Update(Vector2 Offset, List<DestructibleObject> Units)

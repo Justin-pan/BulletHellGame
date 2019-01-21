@@ -18,14 +18,21 @@ namespace TopDownShooter
 {
     public class UI
     {
+        public Basic2d pauseOverlay;
+
+        public Button2d resetBtn;
 
         public SpriteFont font;
 
         public QuantityDisplayBar healthBar;
 
-        public UI()
+        public UI(PassObject Reset)
         {
+            pauseOverlay = new Basic2d("2d\\Misc\\PauseOverlay", new Vector2(Globals.screenWidth / 2, Globals.screenHeight / 2), new Vector2(300, 300));
+
             font = Globals.content.Load<SpriteFont>("Fonts\\Arial16");
+
+            resetBtn = new Button2d("2d\\Misc\\SimpleBtn", new Vector2(0,0), new Vector2(96, 32), "Fonts\\Arial16", "Reset", Reset, null);
 
             healthBar = new QuantityDisplayBar(new Vector2(104, 16), 2, Color.Red);
         }
@@ -33,6 +40,11 @@ namespace TopDownShooter
         public void Update(World World)
         {
             healthBar.Update(World.user.hero.health, World.user.hero.healthMax);
+
+            if (World.user.hero.dead || World.user.buildings.Count <= 0)
+            {
+                resetBtn.Update(new Vector2(Globals.screenWidth / 2, Globals.screenHeight / 2 + 100));
+            }
         }
 
         public void Draw(World World)
@@ -50,12 +62,19 @@ namespace TopDownShooter
 
             if (World.user.hero.dead || World.user.buildings.Count <= 0)
             {
-                tempStr = "Press Enter to Restart";
+                tempStr = "Press Enter or click the button to Restart";
                 strDims = font.MeasureString(tempStr);
                 Globals.spriteBatch.DrawString(font, tempStr, new Vector2(Globals.screenWidth / 2 - strDims.X / 2, Globals.screenHeight/2), Color.Black);
+
+                resetBtn.Draw(new Vector2(Globals.screenWidth / 2, Globals.screenHeight / 2 + 100));
             }
 
             healthBar.Draw(new Vector2(20, Globals.screenHeight - 40));
+
+            if (GameGlobals.paused)
+            {
+                pauseOverlay.Draw(Vector2.Zero);
+            }
         }
     }
 }

@@ -35,19 +35,22 @@ namespace TopDownShooter
 
             GameGlobals.PassProjectile = AddProjectile;
             GameGlobals.PassMob = AddMob;
+            GameGlobals.PassBuilding = AddBuilding;
             GameGlobals.PassSpawnPoint = AddSpawnPoint;
             GameGlobals.CheckScroll = CheckScroll;
+
+            GameGlobals.paused = false;
 
             offset = new Vector2(0, 0);
 
             LoadData(1);
 
-            ui = new UI();
+            ui = new UI(ResetWorld);
         }
 
         public virtual void Update()
         {
-            if (!user.hero.dead && user.buildings.Count > 0) {
+            if (!user.hero.dead && user.buildings.Count > 0 && !GameGlobals.paused) {
 
                 allObjects.Clear();
                 allObjects.AddRange(user.GetAllObjects());
@@ -75,7 +78,26 @@ namespace TopDownShooter
                 }
             }
 
+            if (Globals.keyboard.GetSinglePress("Space"))
+            {
+                GameGlobals.paused = !GameGlobals.paused;
+            }
+
             ui.Update(this);
+        }
+
+        public virtual void AddBuilding(object Info)
+        {
+            Building tempBuilding = (Building)Info;
+
+            if (user.id == tempBuilding.ownerId)
+            {
+                user.AddBuilding(tempBuilding);
+            }
+            else if (aiPlayer.id == tempBuilding.ownerId)
+            {
+                aiPlayer.AddBuilding(tempBuilding);
+            }
         }
 
         public virtual void AddMob(object Info)
@@ -90,6 +112,8 @@ namespace TopDownShooter
             {
                 aiPlayer.AddUnit(tempUnit);
             }
+
+            // aiPlyaer.AddUnit((Mob)Info)
         }
 
         public virtual void AddProjectile(object Info)

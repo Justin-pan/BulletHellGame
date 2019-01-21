@@ -17,7 +17,7 @@ namespace TopDownShooter
 {
     public class Hero : Unit
     {
-
+        //JPTimer buildingTimer = new JPTimer(5000);
         public Hero(string Path, Vector2 Pos, Vector2 Dims, int OwnerId) : base(Path, Pos, Dims, OwnerId)
         {
             speed = 2.0f;
@@ -29,6 +29,7 @@ namespace TopDownShooter
         public override void Update(Vector2 Offset)
         {
             bool checkScroll = false;
+            //buildingTimer.UpdateTimer();
 
             if (Globals.keyboard.GetPress("A"))
             {
@@ -56,6 +57,19 @@ namespace TopDownShooter
                 // Going to the left or up is negative
                 pos = new Vector2(pos.X, pos.Y + speed);
                 checkScroll = true;
+            }
+
+            if (Globals.keyboard.GetSinglePress("D1"))
+            {
+
+                GameGlobals.PassBuilding(new ArrowTower(new Vector2(pos.X, pos.Y), ownerId));
+                /*
+                if (buildingTimer.Test())
+                {
+                    
+                    buildingTimer.ResetToZero();
+                }
+                */
             }
 
             if (checkScroll)

@@ -58,7 +58,7 @@ namespace TopDownShooter
 
             cursor = new Basic2d("2d\\Misc\\CursorArrow", new Vector2(0, 0), new Vector2(28, 28));
 
-            Globals.normalEffect = Globals.content.Load<Effect>("Effects\\BaseShader");
+            Globals.normalEffect = Globals.content.Load<Effect>("Shaders\\2d shaders\\NormalFlat");
 
             Globals.keyboard = new JPKeyboard();
             Globals.mouse = new JPMouseControl();
@@ -117,6 +117,12 @@ namespace TopDownShooter
 
             gamePlay.Draw();
 
+            Globals.normalEffect.Parameters["xSize"].SetValue((float)cursor.texture.Bounds.Width);
+            Globals.normalEffect.Parameters["ySize"].SetValue((float)cursor.texture.Bounds.Height);
+            Globals.normalEffect.Parameters["xDraw"].SetValue((float)((int)cursor.dims.X));
+            Globals.normalEffect.Parameters["yDraw"].SetValue((float)((int)cursor.dims.Y));
+            Globals.normalEffect.Parameters["filterColor"].SetValue(Color.White.ToVector4());
+            Globals.normalEffect.CurrentTechnique.Passes[0].Apply();
             cursor.Draw(new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y), new Vector2(0, 0), Color.White);
             Globals.spriteBatch.End();
 

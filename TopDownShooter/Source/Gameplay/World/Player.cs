@@ -73,11 +73,11 @@ namespace TopDownShooter
 
         }
 
-        public virtual void AddUnit(object Info)
+        public virtual void AddBuilding(object Info)
         {
-            Unit tempUnit = (Unit)Info;
-            tempUnit.ownerId = id;
-            units.Add((Unit)Info);
+            Building tempBuilding = (Building)Info;
+            tempBuilding.ownerId = id;
+            buildings.Add((Building)Info);
         }
 
         public virtual void AddSpawnPoint(object Info)
@@ -85,6 +85,13 @@ namespace TopDownShooter
             SpawnPoint tempSpawnPoint = (SpawnPoint)Info;
             tempSpawnPoint.ownerId = id;
             spawnPoints.Add((SpawnPoint)Info);
+        }
+
+        public virtual void AddUnit(object Info)
+        {
+            Unit tempUnit = (Unit)Info;
+            tempUnit.ownerId = id;
+            units.Add((Unit)Info);
         }
 
         public virtual void ChangeScore(int Score)

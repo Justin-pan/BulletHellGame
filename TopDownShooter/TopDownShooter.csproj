@@ -45,6 +45,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\Engine\Basic2d.cs" />
+    <Compile Include="Source\Engine\Basic2d\Button2d.cs" />
     <Compile Include="Source\Engine\Input\JPKeyboard.cs" />
     <Compile Include="Source\Engine\Input\Keyboard\JPKey.cs" />
     <Compile Include="Source\Engine\Input\JPMouseControl.cs" />
@@ -53,11 +54,13 @@
     <Compile Include="Source\GamePlay.cs" />
     <Compile Include="Source\Gameplay\World.cs" />
     <Compile Include="Source\Engine\Globals.cs" />
+    <Compile Include="Source\Gameplay\World\Buildings\ArrowTower.cs" />
     <Compile Include="Source\Gameplay\World\Buildings\Tower.cs" />
     <Compile Include="Source\Gameplay\World\Player.cs" />
     <Compile Include="Source\Gameplay\World\Players\AIPlayer.cs" />
     <Compile Include="Source\Gameplay\World\Players\User.cs" />
     <Compile Include="Source\Gameplay\World\Projectile.cs" />
+    <Compile Include="Source\Gameplay\World\Projectiles\Arrow.cs" />
     <Compile Include="Source\Gameplay\World\Projectiles\Fireball.cs" />
     <Compile Include="Source\Gameplay\World\SpawnPoint.cs" />
     <Compile Include="Source\Gameplay\World\SpawnPoints\MobChoice.cs" />
@@ -135,33 +138,45 @@
     <Content Include="Content\2d\Misc\solid.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Content\2d\SpawnPoints\EggSac.xnb">
+    <Content Include="Content\2d\Building\ArrowTower.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content\2d\Projectiles\AcidBall.xnb">
+    </Content>
+    <Content Include="Content\2d\Projectiles\Arrow.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content\2d\SpawnPoints\Portal.xnb">
+    </Content>
+    <Content Include="Content\2d\SpawnPoints\EggSac.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content\2d\Building\Tower.xnb">
+    </Content>
+    <Content Include="Content\2d\Projectiles\AcidBall.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content\2d\Units\Hero.xnb">
+    </Content>
+    <Content Include="Content\2d\SpawnPoints\Portal.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content\2d\Units\Mobs\Imp3.xnb">
+    </Content>
+    <Content Include="Content\2d\Building\Tower.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content\2d\Units\Mobs\ImpBlue.xnb">
+    </Content>
+    <Content Include="Content\2d\Units\Hero.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content\2d\Units\Mobs\Spider.xnb">
+    </Content>
+    <Content Include="Content\2d\Units\Mobs\Imp3.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content\Effects\BaseShader.xnb">
+    </Content>
+    <Content Include="Content\2d\Units\Mobs\ImpBlue.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
+    <Content Include="Content\2d\Units\Mobs\Spider.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Effects\BaseShader.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\2d\Misc\PauseOverlay.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\2d\Misc\SimpleBtn.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Audio\" />

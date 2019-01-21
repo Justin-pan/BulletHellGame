@@ -36,6 +36,23 @@ namespace TopDownShooter
 
         }
 
+        public virtual bool Hover(Vector2 Offset)
+        {
+            return HoverImg(Offset);
+        }
+
+        public virtual bool HoverImg(Vector2 Offset)
+        {
+            Vector2 mousePos = new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y);
+
+            if (mousePos.X >= (pos.X + Offset.X) - dims.X/2 && mousePos.X <= (pos.X + Offset.X) + dims.X / 2 && mousePos.Y >= (pos.Y + Offset.Y) - dims.Y / 2 && mousePos.Y <= (pos.Y + Offset.Y) + dims.Y / 2)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public virtual void Draw(Vector2 Offset)
         {
             if(texture != null)

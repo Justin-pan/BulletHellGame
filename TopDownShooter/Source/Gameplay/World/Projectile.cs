@@ -23,11 +23,11 @@ namespace TopDownShooter
 
         public Vector2 direction;
 
-        public Unit owner;
+        public DestructibleObject owner;
 
         public JPTimer timer;
 
-        public Projectile(string Path, Vector2 Pos, Vector2 Dims, Unit Owner, Vector2 Target) : base(Path, Pos, Dims)
+        public Projectile(string Path, Vector2 Pos, Vector2 Dims, DestructibleObject Owner, Vector2 Target) : base(Path, Pos, Dims)
         {
             done = false;
 
