@@ -1,6 +1,17 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
+using System.Threading;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+
+using System.Text;
+using System.Threading.Tasks;
 
 namespace TopDownShooter
 {
@@ -12,6 +23,8 @@ namespace TopDownShooter
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         GamePlay gamePlay;
+
+        MainMenu menu;
 
         Basic2d cursor;
 
@@ -63,7 +76,8 @@ namespace TopDownShooter
             Globals.keyboard = new JPKeyboard();
             Globals.mouse = new JPMouseControl();
 
-            gamePlay = new GamePlay();
+            menu = new MainMenu(ChangeGameState, ExitGame);
+            gamePlay = new GamePlay(ChangeGameState);
         }
 
         /// <summary>
@@ -93,12 +107,30 @@ namespace TopDownShooter
             Globals.keyboard.Update();
             Globals.mouse.Update();
 
-            gamePlay.Update();
+            if(Globals.gameState == 0)
+            {
+                menu.Update();
+            } 
+            else if(Globals.gameState == 1)
+            {
+                gamePlay.Update();
+            }
+
 
             Globals.keyboard.UpdateOld();
             Globals.mouse.UpdateOld();
 
             base.Update(gameTime);
+        }
+
+        public virtual void ChangeGameState(object INFO)
+        {
+            Globals.gameState = Convert.ToInt32(INFO, Globals.culture);
+        }
+
+        public virtual void ExitGame(object INFO)
+        {
+            System.Environment.Exit(0);
         }
 
         /// <summary>
@@ -114,8 +146,14 @@ namespace TopDownShooter
 
             Globals.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 
-
-            gamePlay.Draw();
+            if(Globals.gameState == 0)
+            {
+                menu.Draw();
+            } 
+            else if(Globals.gameState == 1)
+            {
+                gamePlay.Draw();
+            }
 
             Globals.normalEffect.Parameters["xSize"].SetValue((float)cursor.texture.Bounds.Width);
             Globals.normalEffect.Parameters["ySize"].SetValue((float)cursor.texture.Bounds.Height);

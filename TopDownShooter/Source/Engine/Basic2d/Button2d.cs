@@ -33,6 +33,7 @@ namespace TopDownShooter
         {
             text = Text;
             buttonClicked = ButtonClicked;
+            info = Info;
 
             if (FontPath != "")
             {

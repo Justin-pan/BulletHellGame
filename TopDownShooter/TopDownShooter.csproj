@@ -52,6 +52,7 @@
     <Compile Include="Source\Engine\JPTimer.cs" />
     <Compile Include="Source\Engine\Output\QuantityDisplayBar.cs" />
     <Compile Include="Source\GamePlay.cs" />
+    <Compile Include="Source\Gameplay\MainMenu.cs" />
     <Compile Include="Source\Gameplay\World.cs" />
     <Compile Include="Source\Engine\Globals.cs" />
     <Compile Include="Source\Gameplay\World\Buildings\ArrowTower.cs" />
@@ -175,6 +176,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\2d\Misc\SimpleBtn.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\2d\Menu\Backgrounds\MainMenuBkg.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -22,10 +22,12 @@ namespace TopDownShooter
 
         World world;
 
-        public GamePlay()
+        PassObject changeGameState;
+        public GamePlay(PassObject ChangeGameState)
         {
             playState = 0;
 
+            changeGameState = ChangeGameState;
             ResetWorld(null);
         }
 
@@ -40,7 +42,7 @@ namespace TopDownShooter
         public virtual void ResetWorld(object INFO)
         {
             GameGlobals.score = 0;
-            world = new World(ResetWorld);
+            world = new World(ResetWorld, changeGameState);
         }
 
         public virtual void Draw()

@@ -27,11 +27,12 @@ namespace TopDownShooter
         public List<Projectile> projectiles = new List<Projectile>();
         public List<DestructibleObject> allObjects = new List<DestructibleObject>();
 
-        PassObject resetWorld;
+        PassObject resetWorld, changeGameState;
         
-        public World(PassObject ResetWorld)
+        public World(PassObject ResetWorld, PassObject ChangeGameState)
         {
             resetWorld = ResetWorld;
+            changeGameState = ChangeGameState;
 
             GameGlobals.PassProjectile = AddProjectile;
             GameGlobals.PassMob = AddMob;
@@ -78,7 +79,14 @@ namespace TopDownShooter
                 }
             }
 
-            if (Globals.keyboard.GetSinglePress("Space"))
+            if (Globals.keyboard.GetSinglePress("Back"))
+            {
+                resetWorld(null);
+                changeGameState(0);
+            }
+
+
+                if (Globals.keyboard.GetSinglePress("Space"))
             {
                 GameGlobals.paused = !GameGlobals.paused;
             }
