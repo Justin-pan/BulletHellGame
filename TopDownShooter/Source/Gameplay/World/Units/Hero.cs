@@ -18,12 +18,17 @@ namespace TopDownShooter
     public class Hero : Unit
     {
         //JPTimer buildingTimer = new JPTimer(5000);
-        public Hero(string Path, Vector2 Pos, Vector2 Dims, int OwnerId) : base(Path, Pos, Dims, OwnerId)
+        public Hero(string Path, Vector2 Pos, Vector2 Dims, Vector2 Frames, int OwnerId) : base(Path, Pos, Dims, Frames, OwnerId)
         {
             speed = 2.0f;
 
             health = 5;
             healthMax = health;
+
+            frameAnimations = true;
+            currentAnimation = 0;
+            frameAnimationList.Add(new FrameAnimation(new Vector2(frameSize.X, frameSize.Y), frames, new Vector2(0, 0), 1, 133, 0, "Stand"));
+            frameAnimationList.Add(new FrameAnimation(new Vector2(frameSize.X, frameSize.Y), frames, new Vector2(0, 0), 4, 133, 0, "Walk"));
         }
 
         public override void Update(Vector2 Offset)
@@ -62,7 +67,7 @@ namespace TopDownShooter
             if (Globals.keyboard.GetSinglePress("D1"))
             {
 
-                GameGlobals.PassBuilding(new ArrowTower(new Vector2(pos.X, pos.Y), ownerId));
+                GameGlobals.PassBuilding(new ArrowTower(new Vector2(pos.X, pos.Y), new Vector2(1, 1), ownerId));
                 /*
                 if (buildingTimer.Test())
                 {
@@ -75,6 +80,12 @@ namespace TopDownShooter
             if (checkScroll)
             {
                 GameGlobals.CheckScroll(pos);
+
+                SetAnimationByName("Walk");
+            }
+            else
+            {
+                SetAnimationByName("Stand");
             }
 
             rot = Globals.RotateTowards(pos, new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y) - Offset);

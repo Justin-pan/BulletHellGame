@@ -121,7 +121,7 @@ namespace TopDownShooter
                 sType = Type.GetType("TopDownShooter."+ spawnList[i].Element("type").Value, true);
 
 
-                spawnPoints.Add((SpawnPoint)(Activator.CreateInstance(sType,new Vector2(Convert.ToInt32(spawnList[i].Element("Pos").Element("x").Value, Globals.culture), Convert.ToInt32(spawnList[i].Element("Pos").Element("y").Value, Globals.culture)), id, spawnList[i])));
+                spawnPoints.Add((SpawnPoint)(Activator.CreateInstance(sType,new Vector2(Convert.ToInt32(spawnList[i].Element("Pos").Element("x").Value, Globals.culture), Convert.ToInt32(spawnList[i].Element("Pos").Element("y").Value, Globals.culture)), new Vector2(1, 1), id, spawnList[i])));
             }
 
             List<XElement> buildingList = (from t in Data.Descendants("Building")
@@ -131,12 +131,12 @@ namespace TopDownShooter
             {
                 sType = Type.GetType("TopDownShooter." + buildingList[i].Element("type").Value, true);
 
-                buildings.Add((Building)(Activator.CreateInstance(sType, new Vector2(Convert.ToInt32(buildingList[i].Element("Pos").Element("x").Value, Globals.culture), Convert.ToInt32(buildingList[i].Element("Pos").Element("y").Value, Globals.culture)), id)));
+                buildings.Add((Building)(Activator.CreateInstance(sType, new Vector2(Convert.ToInt32(buildingList[i].Element("Pos").Element("x").Value, Globals.culture), Convert.ToInt32(buildingList[i].Element("Pos").Element("y").Value, Globals.culture)), new Vector2(1, 1), id)));
             }
 
             if (Data.Element("Hero") != null)
             {
-                hero = new Hero("2d\\Units\\Hero", new Vector2(Convert.ToInt32(Data.Element("Hero").Element("Pos").Element("x").Value, Globals.culture), Convert.ToInt32(Data.Element("Hero").Element("Pos").Element("y").Value, Globals.culture)), new Vector2(64, 64), id);
+                hero = new Hero("2d\\Units\\HeroSheet", new Vector2(Convert.ToInt32(Data.Element("Hero").Element("Pos").Element("x").Value, Globals.culture), Convert.ToInt32(Data.Element("Hero").Element("Pos").Element("y").Value, Globals.culture)), new Vector2(64, 64), new Vector2(4, 1), id);
             }
         }
 

@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace TopDownShooter
 {
-    public class DestructibleObject : Basic2d
+    public class DestructibleObject : Animated2d
     {
         public bool dead;
 
@@ -23,7 +23,7 @@ namespace TopDownShooter
 
         public float speed, hitDist, health, healthMax;
 
-        public DestructibleObject(string Path, Vector2 Pos, Vector2 Dims, int OwnerId) : base(Path, Pos, Dims)
+        public DestructibleObject(string Path, Vector2 Pos, Vector2 Dims, Vector2 Frames, int OwnerId) : base(Path, Pos, Dims, Frames, Color.White)
         {
             ownerId = OwnerId;
             dead = false;

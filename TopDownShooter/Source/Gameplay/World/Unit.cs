@@ -18,7 +18,7 @@ namespace TopDownShooter
     public class Unit : DestructibleObject
     {
 
-        public Unit(string Path, Vector2 Pos, Vector2 Dims, int OwnerId) : base(Path, Pos, Dims, OwnerId)
+        public Unit(string Path, Vector2 Pos, Vector2 Dims, Vector2 Frames, int OwnerId) : base(Path, Pos, Dims, Frames, OwnerId)
         {
 
         }

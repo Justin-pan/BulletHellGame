@@ -19,7 +19,7 @@ namespace TopDownShooter
     {
 
 
-        public Portal(Vector2 Pos, int OwnerId, XElement Data) : base("2d\\SpawnPoints\\Portal", Pos, new Vector2(45, 45), OwnerId, Data)
+        public Portal(Vector2 Pos, Vector2 Frames, int OwnerId, XElement Data) : base("2d\\SpawnPoints\\Portal", Pos, new Vector2(45, 45), Frames, OwnerId, Data)
         {
             health = 15;
             healthMax = health;
@@ -47,7 +47,7 @@ namespace TopDownShooter
                 {
                     Type sType = Type.GetType("TopDownShooter." + mobChoices[i].mobStr, true);
 
-                    tempMob = (Mob)(Activator.CreateInstance(sType, new Vector2(pos.X, pos.Y), ownerId));
+                    tempMob = (Mob)(Activator.CreateInstance(sType, new Vector2(pos.X, pos.Y), new Vector2(1, 1), ownerId));
 
                     break;
                 }

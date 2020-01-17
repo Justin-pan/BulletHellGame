@@ -21,7 +21,7 @@ namespace TopDownShooter
 
         public JPTimer spawnTimer = new JPTimer(2400);
 
-        public SpawnPoint(string Path, Vector2 Pos, Vector2 Dims, int OwnerId, XElement Data) : base(Path, Pos, Dims, OwnerId)
+        public SpawnPoint(string Path, Vector2 Pos, Vector2 Dims, Vector2 Frames, int OwnerId, XElement Data) : base(Path, Pos, Dims, Frames, OwnerId)
         {
             dead = false;
 
@@ -47,7 +47,7 @@ namespace TopDownShooter
 
         public virtual void SpawnMob()
         {
-            GameGlobals.PassMob(new Imp(new Vector2(pos.X, pos.Y), ownerId));
+            GameGlobals.PassMob(new Imp(new Vector2(pos.X, pos.Y), new Vector2(1, 1), ownerId));
         }
 
         public virtual void LoadData(XElement Data)

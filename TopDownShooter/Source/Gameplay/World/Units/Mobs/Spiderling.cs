@@ -18,7 +18,7 @@ namespace TopDownShooter
     public class Spiderling : Mob
     {
 
-        public Spiderling(Vector2 Pos, int OwnerId) : base("2d\\Units\\Mobs\\Spider", Pos, new Vector2(20, 20), OwnerId)
+        public Spiderling(Vector2 Pos, Vector2 Frames, int OwnerId) : base("2d\\Units\\Mobs\\Spider", Pos, new Vector2(20, 20), Frames, OwnerId)
         {
             speed = 3.0f;    
         }

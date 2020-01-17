@@ -20,7 +20,7 @@ namespace TopDownShooter
 
         int maxSpawns, totalSpawns;
 
-        public SpiderEggSac(Vector2 Pos, int OwnerId, XElement Data) : base("2d\\SpawnPoints\\EggSac", Pos, new Vector2(45, 45), OwnerId, Data)
+        public SpiderEggSac(Vector2 Pos, Vector2 Frames, int OwnerId, XElement Data) : base("2d\\SpawnPoints\\EggSac", Pos, new Vector2(45, 45), Frames, OwnerId, Data)
         {
             totalSpawns = 0;
             maxSpawns = 3;
@@ -40,7 +40,7 @@ namespace TopDownShooter
         public override void SpawnMob()
         {
 
-            Mob tempMob = new Spiderling(new Vector2(pos.X, pos.Y), ownerId);
+            Mob tempMob = new Spiderling(new Vector2(pos.X, pos.Y), new Vector2(1, 1), ownerId);
 
             if(tempMob != null)
             {

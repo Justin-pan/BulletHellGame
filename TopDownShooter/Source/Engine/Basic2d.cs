@@ -19,14 +19,14 @@ namespace TopDownShooter
     {
         public float rot;
 
-        public Vector2 pos, dims;
+        public Vector2 pos, dims, frameSize;
 
         public Texture2D texture;
 
         public Basic2d(string Path, Vector2 Pos, Vector2 Dims)
         {
-            pos = Pos;
-            dims = Dims;
+            pos = new Vector2(Pos.X, Pos.Y);
+            dims = new Vector2(Dims.X, Dims.Y);
 
             texture = Globals.content.Load<Texture2D>(Path);
         }

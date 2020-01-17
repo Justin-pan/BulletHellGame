@@ -18,7 +18,7 @@ namespace TopDownShooter
     public class Mob : Unit
     {
 
-        public Mob(string Path, Vector2 Pos, Vector2 Dims, int OwnerId) : base(Path, Pos, Dims, OwnerId)
+        public Mob(string Path, Vector2 Pos, Vector2 Dims, Vector2 Frames, int OwnerId) : base(Path, Pos, Dims, Frames, OwnerId)
         {
             speed = 2.0f;
         }

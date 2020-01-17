@@ -22,7 +22,7 @@ namespace TopDownShooter
         JPTimer shootTimer = new JPTimer(1000);
 
 
-        public ArrowTower(Vector2 Pos, int OwnerId) : base("2d\\Building\\ArrowTower", Pos, new Vector2(45, 45), OwnerId)
+        public ArrowTower(Vector2 Pos, Vector2 Frames, int OwnerId) : base("2d\\Building\\ArrowTower", Pos, new Vector2(45, 45), Frames, OwnerId)
         {
             range = 220;
 

@@ -18,7 +18,7 @@ namespace TopDownShooter
     public class Tower : Building
     {
 
-        public Tower(Vector2 Pos, int OwnerId) : base("2d\\Building\\Tower", Pos, new Vector2(45, 45), OwnerId)
+        public Tower(Vector2 Pos, Vector2 Frames, int OwnerId) : base("2d\\Building\\Tower", Pos, new Vector2(45, 45), Frames, OwnerId)
         {
             health = 30;
             healthMax = health;
