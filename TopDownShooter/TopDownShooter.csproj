@@ -48,6 +48,8 @@
     <Compile Include="Source\Engine\Basic2d\Animated2d.cs" />
     <Compile Include="Source\Engine\Basic2d\Animated2d\FrameAnimation.cs" />
     <Compile Include="Source\Engine\Basic2d\Button2d.cs" />
+    <Compile Include="Source\Engine\DataTypes\Grids\GridLocation.cs" />
+    <Compile Include="Source\Engine\DataTypes\SquareGrid.cs" />
     <Compile Include="Source\Engine\Input\JPKeyboard.cs" />
     <Compile Include="Source\Engine\Input\Keyboard\JPKey.cs" />
     <Compile Include="Source\Engine\Input\JPMouseControl.cs" />

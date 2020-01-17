@@ -24,6 +24,8 @@ namespace TopDownShooter
         public User user;
         public AIPlayer aiPlayer;
 
+        public SquareGrid grid;
+
         public List<Projectile> projectiles = new List<Projectile>();
         public List<DestructibleObject> allObjects = new List<DestructibleObject>();
 
@@ -45,6 +47,8 @@ namespace TopDownShooter
             offset = new Vector2(0, 0);
 
             LoadData(1);
+
+            grid = new SquareGrid(new Vector2(25, 25), new Vector2(0, 0), new Vector2(Globals.screenWidth, Globals.screenHeight));
 
             ui = new UI(ResetWorld);
         }
@@ -79,16 +83,25 @@ namespace TopDownShooter
                 }
             }
 
+            if(grid != null)
+            {
+                grid.Update(offset);
+            }
+
             if (Globals.keyboard.GetSinglePress("Back"))
             {
                 resetWorld(null);
                 changeGameState(0);
             }
 
-
-                if (Globals.keyboard.GetSinglePress("Space"))
+            if (Globals.keyboard.GetSinglePress("Space"))
             {
                 GameGlobals.paused = !GameGlobals.paused;
+            }
+
+            if (Globals.keyboard.GetSinglePress("G"))
+            {
+                grid.showGrid = !grid.showGrid;
             }
 
             ui.Update(this);
@@ -194,6 +207,8 @@ namespace TopDownShooter
         public virtual void Draw(Vector2 Offset)
         {
             //stuff is drawn in order, so if you draw spawnpoints after mobs, they will show on top of mobs           
+
+            grid.Draw(offset);
 
             user.Draw(offset);
             aiPlayer.Draw(offset);
