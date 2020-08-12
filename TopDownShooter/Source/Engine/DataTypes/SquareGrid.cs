@@ -47,11 +47,17 @@ namespace TopDownShooter
         public virtual void Update(Vector2 Offset)
         {
             currentHoverSlot = GetSlotFromPixel(new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y), -Offset);
+
+        }
+
+        public virtual Vector2 GetPosFromLoc(Vector2 Loc)
+        {
+            return gridOffset + new Vector2((int)Loc.X * slotDims.X, (int)Loc.Y * slotDims.Y);
         }
 
         public virtual GridLocation GetSlotFromLocation(Vector2 Loc)
         {
-            if (Loc.X >= 0 && Loc.Y >= 0 && Loc.X > slots.Count && Loc.Y > slots[(int) Loc.X].Count)
+            if (Loc.X >= 0 && Loc.Y >= 0 && Loc.X < slots.Count && Loc.Y < slots[(int) Loc.X].Count)
             {
                 return slots[(int)Loc.X][(int)Loc.Y];
             } 
@@ -104,6 +110,11 @@ namespace TopDownShooter
                         if (currentHoverSlot.X == j && currentHoverSlot.Y == k)
                         {
                             Globals.normalEffect.Parameters["filterColor"].SetValue(Color.Red.ToVector4());
+                            Globals.normalEffect.CurrentTechnique.Passes[0].Apply();
+                        }
+                        else if (slots[j][k].filled)
+                        {
+                            Globals.normalEffect.Parameters["filterColor"].SetValue(Color.DarkGray.ToVector4());
                             Globals.normalEffect.CurrentTechnique.Passes[0].Apply();
                         }
                         else

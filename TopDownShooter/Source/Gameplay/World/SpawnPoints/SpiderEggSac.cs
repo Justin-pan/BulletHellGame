@@ -31,10 +31,10 @@ namespace TopDownShooter
             spawnTimer = new JPTimer(4000);
         }
 
-        public override void Update(Vector2 Offset)
+        public override void Update(Vector2 Offset, Player Enemy, SquareGrid Grid)
         {
 
-            base.Update(Offset);
+            base.Update(Offset, Enemy, Grid);
         }
 
         public override void SpawnMob()

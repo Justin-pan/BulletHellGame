@@ -61,8 +61,8 @@ namespace TopDownShooter
                 allObjects.AddRange(user.GetAllObjects());
                 allObjects.AddRange(aiPlayer.GetAllObjects());
 
-                user.Update(aiPlayer, offset);
-                aiPlayer.Update(user, offset);
+                user.Update(aiPlayer, offset, grid);
+                aiPlayer.Update(user, offset, grid);
 
                 for (int i = 0; i < projectiles.Count; i++)
                 {

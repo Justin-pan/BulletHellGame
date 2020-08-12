@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using System.Diagnostics;
 using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -17,7 +18,7 @@ namespace TopDownShooter
 {
     public class Hero : Unit
     {
-        //JPTimer buildingTimer = new JPTimer(5000);
+        JPTimer buildingTimer = new JPTimer(5000, true);
         public Hero(string Path, Vector2 Pos, Vector2 Dims, Vector2 Frames, int OwnerId) : base(Path, Pos, Dims, Frames, OwnerId)
         {
             speed = 2.0f;
@@ -31,10 +32,10 @@ namespace TopDownShooter
             frameAnimationList.Add(new FrameAnimation(new Vector2(frameSize.X, frameSize.Y), frames, new Vector2(0, 0), 4, 133, 0, "Walk"));
         }
 
-        public override void Update(Vector2 Offset)
+        public override void Update(Vector2 Offset, Player Enemy, SquareGrid Grid)
         {
             bool checkScroll = false;
-            //buildingTimer.UpdateTimer();
+            buildingTimer.UpdateTimer();
 
             if (Globals.keyboard.GetPress("A"))
             {
@@ -66,15 +67,22 @@ namespace TopDownShooter
 
             if (Globals.keyboard.GetSinglePress("D1"))
             {
+                Vector2 tempLoc = Grid.GetSlotFromPixel(new Vector2(pos.X, pos.Y), Vector2.Zero);
+                GridLocation loc = Grid.GetSlotFromLocation(tempLoc);
 
-                GameGlobals.PassBuilding(new ArrowTower(new Vector2(pos.X, pos.Y), new Vector2(1, 1), ownerId));
-                /*
-                if (buildingTimer.Test())
+                if (loc != null && !loc.filled && !loc.impassible)
                 {
-                    
-                    buildingTimer.ResetToZero();
+
+                    if (buildingTimer.Test())
+                    {
+                        loc.SetToFilled(false);
+
+                        BuildTurret(Grid, tempLoc);
+
+                        buildingTimer.ResetToZero();
+                    }
                 }
-                */
+                
             }
 
             if (checkScroll)
@@ -96,12 +104,21 @@ namespace TopDownShooter
                 GameGlobals.PassProjectile(new Fireball(new Vector2(pos.X, pos.Y), this, new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y) - Offset));
             }
 
-            base.Update(Offset);
+            base.Update(Offset, Enemy, Grid);
         }
 
         public override void Draw(Vector2 Offset)
         {
             base.Draw(Offset);
+        }
+
+        private void BuildTurret(SquareGrid Grid, Vector2 CurrentLoc)
+        {
+            Building arrowTower = new ArrowTower(new Vector2(0, 0), new Vector2(1, 1), ownerId);
+
+            arrowTower.pos = Grid.GetPosFromLoc(CurrentLoc) + Grid.slotDims / 2 + new Vector2(0, -arrowTower.dims.Y * .25f);
+
+            GameGlobals.PassBuilding(arrowTower);
         }
     }
 }

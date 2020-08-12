@@ -30,9 +30,9 @@ namespace TopDownShooter
             */
         }
 
-        public override void Update(Player Enemy, Vector2 Offset)
+        public override void Update(Player Enemy, Vector2 Offset, SquareGrid Grid)
         {
-            base.Update(Enemy, Offset);
+            base.Update(Enemy, Offset, Grid);
         }
 
         public override void ChangeScore(int Score)

@@ -26,10 +26,10 @@ namespace TopDownShooter
             hitDist = 35.0f;
         }
 
-        public override void Update(Vector2 Offset, Player Enemy)
+        public override void Update(Vector2 Offset, Player Enemy, SquareGrid Grid)
         {
 
-            base.Update(Offset);
+            base.Update(Offset, Enemy, Grid);
         }
 
         public override void Draw(Vector2 Offset)

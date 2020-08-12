@@ -30,16 +30,16 @@ namespace TopDownShooter
             LoadData(Data);
         }
 
-        public virtual void Update(Player Enemy, Vector2 Offset)
+        public virtual void Update(Player Enemy, Vector2 Offset, SquareGrid Grid)
         {
             if(hero != null)
             {
-                hero.Update(Offset);
+                hero.Update(Offset, Enemy, Grid);
             }
 
             for (int i = 0; i < units.Count; i++)
             {
-                units[i].Update(Offset, Enemy);
+                units[i].Update(Offset, Enemy, Grid);
 
                 if (units[i].dead)
                 {
@@ -51,7 +51,7 @@ namespace TopDownShooter
 
             for (int i = 0; i < spawnPoints.Count; i++)
             {
-                spawnPoints[i].Update(Offset);
+                spawnPoints[i].Update(Offset, Enemy, Grid);
 
                 if (spawnPoints[i].dead)
                 {
@@ -62,7 +62,7 @@ namespace TopDownShooter
 
             for (int i = 0; i < buildings.Count; i++)
             {
-                buildings[i].Update(Offset, Enemy);
+                buildings[i].Update(Offset, Enemy, Grid);
 
                 if (buildings[i].dead)
                 {

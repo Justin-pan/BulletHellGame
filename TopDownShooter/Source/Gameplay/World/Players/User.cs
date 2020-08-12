@@ -24,9 +24,9 @@ namespace TopDownShooter
             // buildings.Add(new Tower(new Vector2(Globals.screenWidth / 2, Globals.screenHeight / 2 - 40), id));
         }
 
-        public override void Update(Player Enemy, Vector2 Offset)
+        public override void Update(Player Enemy, Vector2 Offset, SquareGrid Grid)
         {
-            base.Update(Enemy, Offset);
+            base.Update(Enemy, Offset, Grid);
         }
     }
 }

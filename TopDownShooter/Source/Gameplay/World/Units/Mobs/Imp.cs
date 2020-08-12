@@ -23,10 +23,10 @@ namespace TopDownShooter
             speed = 2.0f;
         }
 
-        public override void Update(Vector2 Offset, Player Enemy)
+        public override void Update(Vector2 Offset, Player Enemy, SquareGrid Grid)
         {
 
-            base.Update(Offset, Enemy);
+            base.Update(Offset, Enemy, Grid);
         }
 
         public override void Draw(Vector2 Offset)

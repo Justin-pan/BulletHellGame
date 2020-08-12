@@ -33,7 +33,7 @@ namespace TopDownShooter
             hitDist = 35.0f;
         }
 
-        public override void Update(Vector2 Offset)
+        public override void Update(Vector2 Offset, Player Enemy, SquareGrid Grid)
         {
             spawnTimer.UpdateTimer();
             if (spawnTimer.Test())
@@ -42,7 +42,7 @@ namespace TopDownShooter
                 spawnTimer.ResetToZero();
             }
 
-            base.Update(Offset);
+            base.Update(Offset, Enemy, Grid);
         }
 
         public virtual void SpawnMob()

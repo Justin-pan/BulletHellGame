@@ -35,7 +35,7 @@ namespace TopDownShooter
             hitDist = 35.0f;
         }
 
-        public virtual void Update(Vector2 Offset, Player Enemy)
+        public virtual void Update(Vector2 Offset, Player Enemy, SquareGrid Grid)
         {
 
             base.Update(Offset);
