@@ -25,12 +25,12 @@ namespace TopDownShooter
 
         public override void Update(Vector2 Offset, Player Enemy, SquareGrid Grid)
         {
-            AI(Enemy);
+            AI(Enemy, Grid);
 
             base.Update(Offset, Enemy, Grid);
         }
 
-        public virtual void AI(Player Enemy)
+        public virtual void AI(Player Enemy, SquareGrid Grid)
         {
             pos += Globals.RadialMovement(Enemy.hero.pos, pos, speed);
             rot = Globals.RotateTowards(pos, Enemy.hero.pos);

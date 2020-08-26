@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using System.Diagnostics;
 using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -72,7 +71,6 @@ namespace TopDownShooter
 
                 if (loc != null && !loc.filled && !loc.impassible)
                 {
-
                     if (buildingTimer.Test())
                     {
                         loc.SetToFilled(false);

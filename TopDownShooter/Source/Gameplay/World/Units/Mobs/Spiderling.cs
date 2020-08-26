@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace TopDownShooter
 {
@@ -29,7 +30,7 @@ namespace TopDownShooter
             base.Update(Offset, Enemy, Grid);
         }
 
-        public override void AI(Player Enemy)
+        public override void AI(Player Enemy, SquareGrid Grid)
         {
             Building temp = null;
             for (int i = 0; i < Enemy.buildings.Count; i++)
@@ -42,14 +43,21 @@ namespace TopDownShooter
 
             if (temp != null)
             {
-                pos += Globals.RadialMovement(temp.pos, pos, speed);
-                rot = Globals.RotateTowards(pos, temp.pos);
-
-                if (Globals.GetDistance(pos, temp.pos) < 15)
+                if(pathNodes == null || (pathNodes.Count == 0 && pos.X == moveTo.X && pos.Y == moveTo.Y))
                 {
-                    //can create a var in the specific mob class to change damage amounts and override
-                    temp.GetHit(1);
-                    dead = true;
+                    pathNodes = FindPath(Grid, Grid.GetSlotFromPixel(temp.pos, Vector2.Zero));
+                    moveTo = pathNodes[0];
+                    pathNodes.RemoveAt(0);
+                }
+                else 
+                {
+                    MoveToTarget();
+                    if (Globals.GetDistance(pos, temp.pos) < Grid.slotDims.X * 1.2f)
+                    {
+                        //can create a var in the specific mob class to change damage amounts and override
+                        temp.GetHit(1);
+                        dead = true;
+                    }
                 }
             }
             

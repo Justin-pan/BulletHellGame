@@ -91,6 +91,220 @@ namespace TopDownShooter
             }
         }
 
+        #region A* (A Star)
+
+        public List<Vector2> GetPath(Vector2 Start, Vector2 End, bool AllowDiagonals)
+        {
+            List<GridLocation> viewable = new List<GridLocation>(), used = new List<GridLocation>();
+
+            List<List<GridLocation>> masterGrid = new List<List<GridLocation>>();
+
+            // copying grid so that you can make changes to copy instead of original grid
+            bool impassable = false;
+            float cost = 1;
+            for(int i = 0; i < slots.Count; i++)
+            {
+                masterGrid.Add(new List<GridLocation>());
+                for(int j = 0; j < slots[i].Count; j++)
+                {
+                    impassable = slots[i][j].impassible;
+
+                    if(impassable || slots[i][j].filled)
+                    {
+                        impassable = true;
+                    }
+
+                    cost = slots[i][j].cost;
+
+                    masterGrid[i].Add(new GridLocation(new Vector2(i, j), cost, impassable, 99999999));
+                }
+            }
+
+            viewable.Add(masterGrid[(int)Start.X][(int)Start.Y]);
+
+            while(viewable.Count > 0 && !(viewable[0].position.X == End.X && viewable[0].position.Y == End.Y))
+            {
+                TestAStarNode(masterGrid, viewable, used, End, AllowDiagonals);
+            }
+
+            List<Vector2> path = new List<Vector2>();
+
+            if(viewable.Count > 0)
+            {
+                int currentViewableStart = 0;
+                GridLocation currentNode = viewable[currentViewableStart];
+
+                path.Clear();
+                Vector2 tempPos;
+
+                while(true)
+                {
+                    //nodes in grid copy are virtual and only recognized by actual grid indexes, this is to convert from virtual location to actual grid location
+                    tempPos = GetPosFromLoc(currentNode.position) + slotDims/2;
+                    path.Add(new Vector2(tempPos.X, tempPos.Y));
+
+                    if(currentNode.position == Start)
+                    {   
+                        break;
+                    }
+                    else
+                    {
+                        if((int)currentNode.parent.X != -1 && (int)currentNode.parent.Y != -1)
+                        {
+                            if(currentNode.position.X == masterGrid[(int)currentNode.parent.X][(int)currentNode.parent.Y].position.X && currentNode.position.Y == masterGrid[(int)currentNode.parent.X][(int)currentNode.parent.Y].position.Y)
+                            {
+                                //Current node points to itself
+                                currentNode = viewable[currentViewableStart];
+                                currentViewableStart++;
+                            }
+
+                            currentNode = masterGrid[(int)currentNode.parent.X][(int)currentNode.parent.Y];
+                        }
+                        else
+                        {
+                            //Node is off grid
+                            currentNode = viewable[currentViewableStart];
+                            currentViewableStart++;
+                        }
+                    }
+                }
+
+                path.Reverse();
+            }
+
+            return path;
+        }
+
+        public void TestAStarNode(List<List<GridLocation>> MasterGrid, List<GridLocation> Viewable, List<GridLocation> Used, Vector2 End, bool AllowDiagonals)
+        {
+            GridLocation currentNode;
+            bool up = true, down = true, left = true, right = true;
+
+            //Above
+            if(Viewable[0].position.Y > 0 && Viewable[0].position.Y < MasterGrid[0].Count && !MasterGrid[(int)Viewable[0].position.X][(int)Viewable[0].position.Y - 1].impassible)
+            {
+                currentNode = MasterGrid[(int)Viewable[0].position.X][(int)Viewable[0].position.Y - 1];
+                up = currentNode.impassible;
+                SetAStarNode(Viewable, Used, currentNode, new Vector2(Viewable[0].position.X, Viewable[0].position.Y), Viewable[0].currentDist, End, 1);
+            }
+
+            //Below
+            if(Viewable[0].position.Y >= 0 && Viewable[0].position.Y + 1 < MasterGrid[0].Count && !MasterGrid[(int)Viewable[0].position.X][(int)Viewable[0].position.Y + 1].impassible)
+            {
+                currentNode = MasterGrid[(int)Viewable[0].position.X][(int)Viewable[0].position.Y + 1];
+                down = currentNode.impassible;
+                SetAStarNode(Viewable, Used, currentNode, new Vector2(Viewable[0].position.X, Viewable[0].position.Y), Viewable[0].currentDist, End, 1);
+            }
+
+            //Left
+            if(Viewable[0].position.X > 0 && Viewable[0].position.X < MasterGrid.Count && !MasterGrid[(int)Viewable[0].position.X - 1][(int)Viewable[0].position.Y].impassible)
+            {
+                currentNode = MasterGrid[(int)Viewable[0].position.X - 1][(int)Viewable[0].position.Y];
+                left = currentNode.impassible;
+                SetAStarNode(Viewable, Used, currentNode, new Vector2(Viewable[0].position.X, Viewable[0].position.Y), Viewable[0].currentDist, End, 1);
+            }
+
+            //Right
+            if(Viewable[0].position.X >= 0 && Viewable[0].position.X + 1 < MasterGrid.Count && !MasterGrid[(int)Viewable[0].position.X + 1][(int)Viewable[0].position.Y].impassible)
+            {
+                currentNode = MasterGrid[(int)Viewable[0].position.X + 1][(int)Viewable[0].position.Y];
+                right = currentNode.impassible;
+                SetAStarNode(Viewable, Used, currentNode, new Vector2(Viewable[0].position.X, Viewable[0].position.Y), Viewable[0].currentDist, End, 1);
+            }
+
+            if(AllowDiagonals)
+            {
+
+                //Up and right
+                if(Viewable[0].position.X >= 0 && Viewable[0].position.X+1 < MasterGrid.Count && Viewable[0].position.Y > 0 && Viewable[0].position.Y < MasterGrid[0].Count && !MasterGrid[(int)Viewable[0].position.X + 1][(int)Viewable[0].position.Y - 1].impassible && (!up || !right))
+                {
+                    currentNode = MasterGrid[(int)Viewable[0].position.X + 1][(int)Viewable[0].position.Y - 1];
+
+                    SetAStarNode(Viewable, Used, currentNode, new Vector2(Viewable[0].position.X, Viewable[0].position.Y), Viewable[0].currentDist, End, (float)Math.Sqrt(2));
+                }
+
+                //Down and right
+                if(Viewable[0].position.X >= 0 && Viewable[0].position.X + 1 < MasterGrid.Count && Viewable[0].position.Y >= 0 && Viewable[0].position.Y + 1 < MasterGrid[0].Count && !MasterGrid[(int)Viewable[0].position.X + 1][(int)Viewable[0].position.Y + 1].impassible && (!down || !right))
+                {
+                    currentNode = MasterGrid[(int)Viewable[0].position.X + 1][(int)Viewable[0].position.Y + 1];
+
+                    SetAStarNode(Viewable, Used, currentNode, new Vector2(Viewable[0].position.X, Viewable[0].position.Y), Viewable[0].currentDist, End, (float)Math.Sqrt(2));
+                }
+
+                //Up and Left
+                if(Viewable[0].position.X > 0 && Viewable[0].position.X < MasterGrid.Count && Viewable[0].position.Y > 0 && Viewable[0].position.Y < MasterGrid[0].Count && !MasterGrid[(int)Viewable[0].position.X - 1][(int)Viewable[0].position.Y - 1].impassible &&(!up || !left))
+                {
+                    currentNode = MasterGrid[(int)Viewable[0].position.X - 1][(int)Viewable[0].position.Y - 1];
+
+                    SetAStarNode(Viewable, Used, currentNode, new Vector2(Viewable[0].position.X, Viewable[0].position.Y), Viewable[0].currentDist, End, (float)Math.Sqrt(2));
+                }
+
+                //Down and Left
+                if(Viewable[0].position.X > 0 && Viewable[0].position.X < MasterGrid.Count && Viewable[0].position.Y >= 0 && Viewable[0].position.Y + 1 < MasterGrid[0].Count && !MasterGrid[(int)Viewable[0].position.X - 1][(int)Viewable[0].position.Y + 1].impassible && (!down || !left))
+                {
+                    currentNode = MasterGrid[(int)Viewable[0].position.X - 1][(int)Viewable[0].position.Y + 1];
+
+                    SetAStarNode(Viewable, Used, currentNode, new Vector2(Viewable[0].position.X, Viewable[0].position.Y), Viewable[0].currentDist, End, (float)Math.Sqrt(2));
+                }
+            }
+
+            Viewable[0].hasBeenUsed = true;
+            Used.Add(Viewable[0]);
+            Viewable.RemoveAt(0);
+
+
+            //sort
+            /*
+             * Viewable.Sort(delegate(AStarNode n1, AStarNode n2)
+             * {
+             *     return n1.fScore.CompareTo(n2.fScore);
+             * }
+             */
+        }
+
+        public void SetAStarNode(List<GridLocation> Viewable, List<GridLocation> Used, GridLocation nextNode, Vector2 nextParent, float D, Vector2 Target, float DistMult)
+        {
+            float f = D;
+            float addedDist = (nextNode.cost * DistMult);
+
+            if(!nextNode.isViewable && !nextNode.hasBeenUsed)
+            {
+                nextNode.SetNode(nextParent, f, D + addedDist);
+                nextNode.isViewable = true;
+
+                SetAStarNodeInsert(Viewable, nextNode);
+            }
+            else if(nextNode.isViewable)
+            {
+                if(f < nextNode.fScore)
+                {
+                    nextNode.SetNode(nextParent, f, D + addedDist);
+                }
+            }
+        }
+
+        public virtual void SetAStarNodeInsert(List<GridLocation> List, GridLocation NewNode)
+        {
+            bool added = false;
+            for(int i = 0; i < List.Count; i++)
+            {
+                if(List[i].fScore > NewNode.fScore)
+                {
+                    List.Insert(Math.Max(1, i), NewNode);
+
+                    added = true;
+                    break;
+                }
+            }
+
+            if(!added)
+            {
+                List.Add(NewNode);
+            }
+        }
+
+        #endregion
+
         public virtual void Draw(Vector2 Offset)
         {
             if (showGrid)
