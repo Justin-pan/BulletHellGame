@@ -18,7 +18,7 @@ namespace TopDownShooter
 {
     public class SquareGrid
     {
-
+        
         public bool showGrid;
         //slotDims, gridDims, physicalStartPos, totalPhysicalDims, currentHoverSlot
         public Vector2 slotDims, totalSlots, gridOffset, totalDims, currentHoverSlot;
@@ -170,6 +170,11 @@ namespace TopDownShooter
                 }
 
                 path.Reverse();
+
+                if(path.Count > 1)
+                {
+                    path.RemoveAt(0);
+                }
             }
 
             return path;

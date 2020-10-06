@@ -19,9 +19,12 @@ namespace TopDownShooter
     public class Unit : DestructibleObject
     {
 
+        public Skill currentSkill;
+
         protected Vector2 moveTo;
 
         protected List<Vector2> pathNodes = new List<Vector2>();
+        public List<Skill> skills = new List<Skill>();
 
         public Unit(string Path, Vector2 Pos, Vector2 Dims, Vector2 Frames, int OwnerId) : base(Path, Pos, Dims, Frames, OwnerId)
         {
@@ -53,6 +56,7 @@ namespace TopDownShooter
         {
             if(pos.X != moveTo.X || pos.Y != moveTo.Y)
             {
+                rot = Globals.RotateTowards(pos, moveTo);
                 pos += Globals.RadialMovement(moveTo, pos, speed);
             }
             else if(pathNodes.Count > 0)
@@ -62,8 +66,6 @@ namespace TopDownShooter
 
                 pos += Globals.RadialMovement(moveTo, pos, speed);
             }
-
-            rot = Globals.RotateTowards(pos, moveTo);
         }
 
         public override void Draw(Vector2 Offset)

@@ -18,6 +18,8 @@ namespace TopDownShooter
 
     public delegate void PassObject(object i);
     public delegate object PassObjectAndReturn(object i);
+    
+    public delegate void Notif();
 
     public class Globals
     {

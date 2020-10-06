@@ -29,6 +29,8 @@ namespace TopDownShooter
             currentAnimation = 0;
             frameAnimationList.Add(new FrameAnimation(new Vector2(frameSize.X, frameSize.Y), frames, new Vector2(0, 0), 1, 133, 0, "Stand"));
             frameAnimationList.Add(new FrameAnimation(new Vector2(frameSize.X, frameSize.Y), frames, new Vector2(0, 0), 4, 133, 0, "Walk"));
+
+            skills.Add(new FlameCircle(this));
         }
 
         public override void Update(Vector2 Offset, Player Enemy, SquareGrid Grid)
@@ -45,28 +47,25 @@ namespace TopDownShooter
 
             if (Globals.keyboard.GetPress("D"))
             {
-                // Going to the left or up is negative
                 pos = new Vector2(pos.X + speed, pos.Y);
                 checkScroll = true;
             }
 
             if (Globals.keyboard.GetPress("W"))
             {
-                // Going to the left or up is negative
                 pos = new Vector2(pos.X, pos.Y - speed);
                 checkScroll = true;
             }
 
             if (Globals.keyboard.GetPress("S"))
             {
-                // Going to the left or up is negative
                 pos = new Vector2(pos.X, pos.Y + speed);
                 checkScroll = true;
             }
 
-            if (Globals.keyboard.GetSinglePress("D1"))
+            if (Globals.keyboard.GetSinglePress("T"))
             {
-                Vector2 tempLoc = Grid.GetSlotFromPixel(new Vector2(pos.X, pos.Y), Vector2.Zero);
+                Vector2 tempLoc = Grid.GetSlotFromPixel(new Vector2(pos.X, pos.Y - 30), Vector2.Zero);
                 GridLocation loc = Grid.GetSlotFromLocation(tempLoc);
 
                 if (loc != null && !loc.filled && !loc.impassible)
@@ -83,6 +82,12 @@ namespace TopDownShooter
                 
             }
 
+            if(Globals.keyboard.GetSinglePress("D1"))
+            {
+                currentSkill = skills[0];
+                currentSkill.Active = true;
+            }
+
             if (checkScroll)
             {
                 GameGlobals.CheckScroll(pos);
@@ -95,11 +100,29 @@ namespace TopDownShooter
             }
 
             rot = Globals.RotateTowards(pos, new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y) - Offset);
-
-            if (Globals.mouse.LeftClick())
+            if(currentSkill == null)
             {
-                // C# automatically pass by reference so create new objects with old data if needed
-                GameGlobals.PassProjectile(new Fireball(new Vector2(pos.X, pos.Y), this, new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y) - Offset));
+                if (Globals.mouse.LeftClick())
+                {
+                    // C# automatically pass by reference so create new objects with old data if needed
+                    GameGlobals.PassProjectile(new Fireball(new Vector2(pos.X, pos.Y), this, new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y) - Offset));
+                }
+            }
+            else
+            {
+                currentSkill.Update(Offset, Enemy);
+
+                if(currentSkill.done)
+                {
+                    currentSkill.Reset();
+                    currentSkill = null;
+                }
+            }
+            
+            if(Globals.mouse.RightClick())
+            {
+                currentSkill.Reset();
+                currentSkill = null;
             }
 
             base.Update(Offset, Enemy, Grid);
@@ -117,6 +140,7 @@ namespace TopDownShooter
             arrowTower.pos = Grid.GetPosFromLoc(CurrentLoc) + Grid.slotDims / 2 + new Vector2(0, -arrowTower.dims.Y * .25f);
 
             GameGlobals.PassBuilding(arrowTower);
+            // GameGlobals.RePathNotif();
         }
     }
 }

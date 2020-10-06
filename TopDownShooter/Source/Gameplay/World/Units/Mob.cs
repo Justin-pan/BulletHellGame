@@ -17,9 +17,11 @@ namespace TopDownShooter
 {
     public class Mob : Unit
     {
-
+        public bool currentlyPathing;
+        public JPTimer rePathTimer = new JPTimer(200);
         public Mob(string Path, Vector2 Pos, Vector2 Dims, Vector2 Frames, int OwnerId) : base(Path, Pos, Dims, Frames, OwnerId)
         {
+            currentlyPathing = false;
             speed = 2.0f;
         }
 
@@ -32,15 +34,37 @@ namespace TopDownShooter
 
         public virtual void AI(Player Enemy, SquareGrid Grid)
         {
-            pos += Globals.RadialMovement(Enemy.hero.pos, pos, speed);
-            rot = Globals.RotateTowards(pos, Enemy.hero.pos);
+            rePathTimer.UpdateTimer();
 
-            if (Globals.GetDistance(pos, Enemy.hero.pos) < 15)
+            if(pathNodes == null || (pathNodes.Count == 0 && pos.X == moveTo.X && pos.Y == moveTo.Y) || rePathTimer.Test())
             {
-                //can create a var in the specific mob class to change damage amounts and override
-                Enemy.hero.GetHit(1);
-                dead = true;
+                if(!currentlyPathing)
+                {
+                    Task repathTask = new Task(() =>
+                    {
+                        currentlyPathing = true;
+                        pathNodes = FindPath(Grid, Grid.GetSlotFromPixel(Enemy.hero.pos, Vector2.Zero));
+                        moveTo = pathNodes[0];
+                        pathNodes.RemoveAt(0);
+
+                        rePathTimer.ResetToZero();
+                        currentlyPathing = false;
+                    });
+
+                    repathTask.Start();
+                }
             }
+            else
+            {
+                MoveToTarget();
+
+                if(Globals.GetDistance(pos, Enemy.hero.pos) < Grid.slotDims.X * 1.2f)
+                {
+                    Enemy.hero.GetHit(1);
+                    dead = true;
+                }
+            }
+            
         }
 
         public override void Draw(Vector2 Offset)

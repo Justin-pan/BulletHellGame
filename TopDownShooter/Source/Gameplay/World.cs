@@ -27,6 +27,7 @@ namespace TopDownShooter
         public SquareGrid grid;
 
         public List<Projectile> projectiles = new List<Projectile>();
+        public List<Effect2d> effects = new List<Effect2d>();
         public List<DestructibleObject> allObjects = new List<DestructibleObject>();
 
         PassObject resetWorld, changeGameState;
@@ -37,10 +38,13 @@ namespace TopDownShooter
             changeGameState = ChangeGameState;
 
             GameGlobals.PassProjectile = AddProjectile;
+            GameGlobals.PassEffect = AddEffect;
             GameGlobals.PassMob = AddMob;
             GameGlobals.PassBuilding = AddBuilding;
             GameGlobals.PassSpawnPoint = AddSpawnPoint;
             GameGlobals.CheckScroll = CheckScroll;
+
+            // GameGlobals.RePathNotif = SetRePath;
 
             GameGlobals.paused = false;
 
@@ -71,6 +75,17 @@ namespace TopDownShooter
                     if (projectiles[i].done)
                     {
                         projectiles.RemoveAt(i);
+                        i--;
+                    }
+                }
+
+                for (int i = 0; i < effects.Count; i++)
+                {
+                    effects[i].Update(offset);
+
+                    if (effects[i].done)
+                    {
+                        effects.RemoveAt(i);
                         i--;
                     }
                 }
@@ -119,6 +134,11 @@ namespace TopDownShooter
             {
                 aiPlayer.AddBuilding(tempBuilding);
             }
+        }
+
+        public virtual void AddEffect(object Info)
+        {
+            effects.Add((Effect2d)Info);
         }
 
         public virtual void AddMob(object Info)
@@ -216,6 +236,11 @@ namespace TopDownShooter
             for (int i = 0; i < projectiles.Count; i++)
             {
                 projectiles[i].Draw(offset);
+            }
+
+            for (int i = 0; i < effects.Count; i++)
+            {
+                effects[i].Draw(offset);
             }
 
             ui.Draw(this);

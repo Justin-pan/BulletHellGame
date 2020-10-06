@@ -67,12 +67,17 @@
     <Compile Include="Source\Gameplay\World\Projectile.cs" />
     <Compile Include="Source\Gameplay\World\Projectiles\Arrow.cs" />
     <Compile Include="Source\Gameplay\World\Projectiles\Fireball.cs" />
+    <Compile Include="Source\Gameplay\World\Projectiles\StillInvisibleProjectile.cs" />
+    <Compile Include="Source\Gameplay\World\Projectiles\SIP\FlameCircleProjectile.cs" />
+    <Compile Include="Source\Gameplay\World\SkillEffects\FireNova.cs" />
+    <Compile Include="Source\Gameplay\World\SkillEffects\TargetCircle.cs" />
     <Compile Include="Source\Gameplay\World\SpawnPoint.cs" />
     <Compile Include="Source\Gameplay\World\SpawnPoints\MobChoice.cs" />
     <Compile Include="Source\Gameplay\World\SpawnPoints\SpiderEggSac.cs" />
     <Compile Include="Source\Gameplay\World\SpawnPoints\Portal.cs" />
     <Compile Include="Source\Gameplay\World\UI.cs" />
     <Compile Include="Source\Gameplay\World\DestructibleObject.cs" />
+    <Compile Include="Source\Gameplay\World\Effect2d.cs" />
     <Compile Include="Source\Gameplay\World\Building.cs" />
     <Compile Include="Source\Gameplay\World\Unit.cs" />
     <Compile Include="Source\Gameplay\World\Units\Mob.cs" />
@@ -80,6 +85,8 @@
     <Compile Include="Source\Gameplay\World\Units\Mobs\Spider.cs" />
     <Compile Include="Source\Gameplay\World\Units\Mobs\Imp.cs" />
     <Compile Include="Source\Gameplay\World\Units\Hero.cs" />
+    <Compile Include="Source\Gameplay\World\Units\Skill.cs" />
+    <Compile Include="Source\Gameplay\World\Units\Skills\FlameCircle.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -186,6 +193,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\2d\Units\HeroSheet.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\2d\Skills\FireNova.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\2d\Skills\TargetCircle.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

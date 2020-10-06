@@ -45,7 +45,7 @@ namespace TopDownShooter
 
         public virtual void Update(Vector2 Offset, List<DestructibleObject> Units)
         {
-            pos += direction * speed;
+            ChangePosition();
 
             timer.UpdateTimer();
             if (timer.Test())
@@ -57,6 +57,11 @@ namespace TopDownShooter
             {
                 done = true;
             }
+        }
+
+        public virtual void ChangePosition()
+        {
+            pos += direction * speed;
         }
         
         public virtual bool HitSomething(List<DestructibleObject> Units) 
