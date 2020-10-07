@@ -25,9 +25,10 @@ namespace TopDownShooter
 
         public Basic2d gridImg;
 
+        public List<GridItem> gridItems = new List<GridItem>();
         public List<List<GridLocation>> slots = new List<List<GridLocation>>();
 
-        public SquareGrid(Vector2 SlotDims, Vector2 StartPos, Vector2 TotalDims)
+        public SquareGrid(Vector2 SlotDims, Vector2 StartPos, Vector2 TotalDims, XElement Data)
         {
             showGrid = false;
 
@@ -42,12 +43,19 @@ namespace TopDownShooter
             //Pos needs to be set with an offset because the position of the grid should be top left corner but it is drawn from the middle
             //The -2 in dims is used to ensure that the slots don't overlap
             gridImg = new Basic2d("2d\\Misc\\shade", slotDims / 2, new Vector2(slotDims.X - 2, slotDims.Y - 2));
+            LoadData(Data);
         }
 
         public virtual void Update(Vector2 Offset)
         {
             currentHoverSlot = GetSlotFromPixel(new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y), -Offset);
 
+        }
+
+        public virtual void AddGridItem(string Path, Vector2 Loc)
+        {
+            gridItems.Add(new GridItem(Path, GetPosFromLoc(Loc) + slotDims / 2, new Vector2(slotDims.X, slotDims.Y), new Vector2(1, 1)));
+            GetSlotFromLocation(Loc).SetToFilled(true);
         }
 
         public virtual Vector2 GetPosFromLoc(Vector2 Loc)
@@ -74,6 +82,21 @@ namespace TopDownShooter
             Vector2 tempVec = new Vector2(Math.Min(Math.Max(0, (int)(adjustedPos.X / slotDims.X)), slots.Count - 1), Math.Min(Math.Max(0, (int)(adjustedPos.Y / slotDims.Y)), slots[0].Count - 1));
 
             return tempVec;
+        }
+
+        public virtual void LoadData(XElement Data)
+        {
+            if(Data != null)
+            {
+                List<XElement> gridItemsList = (from t in Data.Descendants("GridItem")
+                                            select t).ToList<XElement>();
+
+                for(int i = 0; i < gridItemsList.Count; i++)
+                {
+                    AddGridItem("2d\\Grid\\Hill", new Vector2(Convert.ToInt32(gridItemsList[i].Element("Loc").Element("x").Value, Globals.culture)
+                                                            , Convert.ToInt32(gridItemsList[i].Element("Loc").Element("y").Value, Globals.culture)));
+                }
+            }
         }
 
         public virtual void SetBaseGrid()
@@ -345,6 +368,11 @@ namespace TopDownShooter
                         gridImg.Draw(Offset + gridOffset + new Vector2(j * slotDims.X, k * slotDims.Y));
                     }
                 }
+            }
+            
+            for(int i = 0; i < gridItems.Count; i++)
+            {
+                gridItems[i].Draw(Offset);
             }
         }
     }

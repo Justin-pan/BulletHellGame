@@ -52,7 +52,6 @@ namespace TopDownShooter
 
             LoadData(1);
 
-            grid = new SquareGrid(new Vector2(25, 25), new Vector2(0, 0), new Vector2(Globals.screenWidth, Globals.screenHeight));
 
             ui = new UI(ResetWorld);
         }
@@ -220,6 +219,8 @@ namespace TopDownShooter
             {
                 tempElement = xml.Element("Root").Element("AIPlayer");
             }
+
+            grid = new SquareGrid(new Vector2(25, 25), new Vector2(0, 0), new Vector2(Globals.screenWidth, Globals.screenHeight), xml.Element("Root").Element("GridItems"));
 
             aiPlayer = new AIPlayer(2, tempElement);
         }

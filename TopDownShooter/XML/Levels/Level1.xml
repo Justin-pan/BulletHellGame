@@ -47,4 +47,42 @@
       <timerAdd>0</timerAdd>
     </SpawnPoint>
   </AIPlayer>
+
+  <GridItems>
+    <GridItem>
+      <type>Hill</type>
+      <Loc>
+        <x>9</x>
+        <y>9</y>
+      </Loc>
+    </GridItem>
+    <GridItem>
+      <type>Hill</type>
+      <Loc>
+        <x>10</x>
+        <y>8</y>
+      </Loc>
+    </GridItem>
+    <GridItem>
+      <type>Hill</type>
+      <Loc>
+        <x>10</x>
+        <y>7</y>
+      </Loc>
+    </GridItem>
+    <GridItem>
+      <type>Hill</type>
+      <Loc>
+        <x>8</x>
+        <y>10</y>
+      </Loc>
+    </GridItem>
+    <GridItem>
+      <type>Hill</type>
+      <Loc>
+        <x>7</x>
+        <y>10</y>
+      </Loc>
+    </GridItem>
+  </GridItems>
 </Root>

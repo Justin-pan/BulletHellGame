@@ -121,8 +121,12 @@ namespace TopDownShooter
             
             if(Globals.mouse.RightClick())
             {
-                currentSkill.Reset();
-                currentSkill = null;
+                if(currentSkill != null)
+                {
+                    currentSkill.Reset();
+                    currentSkill = null;
+                }
+                
             }
 
             base.Update(Offset, Enemy, Grid);
