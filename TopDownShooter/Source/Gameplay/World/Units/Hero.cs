@@ -41,25 +41,29 @@ namespace TopDownShooter
             if (Globals.keyboard.GetPress("A"))
             {
                 // Going to the left or up is negative
-                pos = new Vector2(pos.X - speed, pos.Y);
+                //pos = new Vector2(pos.X - speed, pos.Y);
+                pos.X -= speed;
                 checkScroll = true;
             }
 
             if (Globals.keyboard.GetPress("D"))
             {
-                pos = new Vector2(pos.X + speed, pos.Y);
+                //pos = new Vector2(pos.X + speed, pos.Y);
+                pos.X += speed;
                 checkScroll = true;
             }
 
             if (Globals.keyboard.GetPress("W"))
             {
-                pos = new Vector2(pos.X, pos.Y - speed);
+                //pos = new Vector2(pos.X, pos.Y - speed);
+                pos.Y -= speed;
                 checkScroll = true;
             }
 
             if (Globals.keyboard.GetPress("S"))
             {
-                pos = new Vector2(pos.X, pos.Y + speed);
+                //pos = new Vector2(pos.X, pos.Y + speed);
+                pos.Y += speed;
                 checkScroll = true;
             }
 

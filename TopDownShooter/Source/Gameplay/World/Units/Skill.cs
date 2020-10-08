@@ -66,6 +66,7 @@ namespace TopDownShooter
         {
             active = false;
             done = false;
+            targetEffect.done = true;
         }
 
         public virtual void Targeting(Vector2 Offset, Player Enemy)

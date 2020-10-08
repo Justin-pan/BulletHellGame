@@ -50,6 +50,7 @@
     <Compile Include="Source\Engine\Basic2d\Button2d.cs" />
     <Compile Include="Source\Engine\DataTypes\Grids\GridLocation.cs" />
     <Compile Include="Source\Engine\DataTypes\Grids\GridItem.cs" />
+    <Compile Include="Source\Engine\DataTypes\SceneItem\SceneItem.cs" />
     <Compile Include="Source\Engine\DataTypes\SquareGrid.cs" />
     <Compile Include="Source\Engine\Input\JPKeyboard.cs" />
     <Compile Include="Source\Engine\Input\Keyboard\JPKey.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Source\Gameplay\World\Projectiles\Fireball.cs" />
     <Compile Include="Source\Gameplay\World\Projectiles\StillInvisibleProjectile.cs" />
     <Compile Include="Source\Gameplay\World\Projectiles\SIP\FlameCircleProjectile.cs" />
+    <Compile Include="Source\Gameplay\World\Scene\Plants\OakTree.cs" />
     <Compile Include="Source\Gameplay\World\SkillEffects\FireNova.cs" />
     <Compile Include="Source\Gameplay\World\SkillEffects\TargetCircle.cs" />
     <Compile Include="Source\Gameplay\World\SpawnPoint.cs" />
@@ -182,6 +184,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\2d\Units\Mobs\Spider.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\2d\UI\Scene\oakTree.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Effects\BaseShader.xnb">

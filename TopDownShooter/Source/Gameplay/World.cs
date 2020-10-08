@@ -29,6 +29,8 @@ namespace TopDownShooter
         public List<Projectile> projectiles = new List<Projectile>();
         public List<Effect2d> effects = new List<Effect2d>();
         public List<DestructibleObject> allObjects = new List<DestructibleObject>();
+        public List<SceneItem> sceneItems = new List<SceneItem>();
+        
 
         PassObject resetWorld, changeGameState;
         
@@ -87,6 +89,11 @@ namespace TopDownShooter
                         effects.RemoveAt(i);
                         i--;
                     }
+                }
+
+                for(int i = 0; i < sceneItems.Count; i++)
+                {
+                    sceneItems[i].Update(offset);
                 }
             }
             else
@@ -223,6 +230,19 @@ namespace TopDownShooter
             grid = new SquareGrid(new Vector2(25, 25), new Vector2(0, 0), new Vector2(Globals.screenWidth, Globals.screenHeight), xml.Element("Root").Element("GridItems"));
 
             aiPlayer = new AIPlayer(2, tempElement);
+
+            List<XElement> sceneItemList = (from t in xml.Element("Root").Element("Scene").Descendants("SceneItem")
+                                            select t).ToList<XElement>();
+            
+            Type sType = null;
+            for(int i = 0; i < sceneItemList.Count; i++)
+            {
+                sType = Type.GetType("TopDownShooter."+sceneItemList[i].Element("type").Value, true);
+                
+                sceneItems.Add((SceneItem)(Activator.CreateInstance(sType, new Vector2(Convert.ToInt32(sceneItemList[i].Element("Pos").Element("x").Value, Globals.culture), 
+                                            Convert.ToInt32(sceneItemList[i].Element("Pos").Element("y").Value, Globals.culture)), 
+                                            new Vector2((float)Convert.ToDouble(sceneItemList[i].Element("scale").Value, Globals.culture)))));
+            }
         }
 
         public virtual void Draw(Vector2 Offset)
@@ -233,6 +253,11 @@ namespace TopDownShooter
 
             user.Draw(offset);
             aiPlayer.Draw(offset);
+
+            for(int i = 0; i < sceneItems.Count; i++)
+            {
+                sceneItems[i].Draw(offset);
+            }
 
             for (int i = 0; i < projectiles.Count; i++)
             {
