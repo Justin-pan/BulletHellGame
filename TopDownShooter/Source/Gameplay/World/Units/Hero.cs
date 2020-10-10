@@ -18,12 +18,15 @@ namespace TopDownShooter
     public class Hero : Unit
     {
         JPTimer buildingTimer = new JPTimer(5000, true);
+        public int gold;
         public Hero(string Path, Vector2 Pos, Vector2 Dims, Vector2 Frames, int OwnerId) : base(Path, Pos, Dims, Frames, OwnerId)
         {
             speed = 2.0f;
 
             health = 5;
             healthMax = health;
+            
+            gold = 5;
 
             frameAnimations = true;
             currentAnimation = 0;
@@ -67,25 +70,30 @@ namespace TopDownShooter
                 checkScroll = true;
             }
 
-            if (Globals.keyboard.GetSinglePress("T"))
+            if(gold >= 10)
             {
-                Vector2 tempLoc = Grid.GetSlotFromPixel(new Vector2(pos.X, pos.Y - 30), Vector2.Zero);
-                GridLocation loc = Grid.GetSlotFromLocation(tempLoc);
-
-                if (loc != null && !loc.filled && !loc.impassible)
+                if (Globals.keyboard.GetSinglePress("T"))
                 {
-                    if (buildingTimer.Test())
+                    Vector2 tempLoc = Grid.GetSlotFromPixel(new Vector2(pos.X, pos.Y - 30), Vector2.Zero);
+                    GridLocation loc = Grid.GetSlotFromLocation(tempLoc);
+
+                    if (loc != null && !loc.filled && !loc.impassible)
                     {
-                        loc.SetToFilled(false);
+                        if (buildingTimer.Test())
+                        {
+                            loc.SetToFilled(false);
 
-                        BuildTurret(Grid, tempLoc);
+                            BuildTurret(Grid, tempLoc);
 
-                        buildingTimer.ResetToZero();
+                            buildingTimer.ResetToZero();
+
+                            gold -= 10;
+                        }
                     }
+                    
                 }
-                
             }
-
+            
             if(Globals.keyboard.GetSinglePress("D1"))
             {
                 currentSkill = skills[0];

@@ -41,6 +41,7 @@ namespace TopDownShooter
 
             GameGlobals.PassProjectile = AddProjectile;
             GameGlobals.PassEffect = AddEffect;
+            GameGlobals.PassGold = AddGold;
             GameGlobals.PassMob = AddMob;
             GameGlobals.PassBuilding = AddBuilding;
             GameGlobals.PassSpawnPoint = AddSpawnPoint;
@@ -145,6 +146,20 @@ namespace TopDownShooter
         public virtual void AddEffect(object Info)
         {
             effects.Add((Effect2d)Info);
+        }
+
+        public virtual void AddGold(object Info)
+        {
+            PlayerValuePacket packet = (PlayerValuePacket)Info;
+
+            if(user.id == packet.playerId)
+            {
+                user.hero.gold += (int)packet.value;
+            }
+            else if(aiPlayer.id == packet.playerId)
+            {
+                //aiPlayer.gold = (int)packet.value;
+            }
         }
 
         public virtual void AddMob(object Info)

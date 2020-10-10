@@ -19,8 +19,11 @@ namespace TopDownShooter
     {
         public bool currentlyPathing;
         public JPTimer rePathTimer = new JPTimer(200);
+        public int gold;
         public Mob(string Path, Vector2 Pos, Vector2 Dims, Vector2 Frames, int OwnerId) : base(Path, Pos, Dims, Frames, OwnerId)
         {
+            gold = 0;
+
             currentlyPathing = false;
             speed = 2.0f;
         }
@@ -60,7 +63,7 @@ namespace TopDownShooter
 
                 if(Globals.GetDistance(pos, Enemy.hero.pos) < Grid.slotDims.X * 1.2f)
                 {
-                    Enemy.hero.GetHit(1);
+                    Enemy.hero.GetHit(this, 1);
                     dead = true;
                 }
             }

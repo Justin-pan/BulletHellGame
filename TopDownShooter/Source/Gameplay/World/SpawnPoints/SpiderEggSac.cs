@@ -28,6 +28,8 @@ namespace TopDownShooter
             health = 5;
             healthMax = health;
 
+            killValue = 2;
+
             spawnTimer = new JPTimer(4000);
         }
 

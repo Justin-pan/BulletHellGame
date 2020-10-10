@@ -70,7 +70,7 @@ namespace TopDownShooter
             {
                 if (owner.ownerId != Units[i].ownerId && Globals.GetDistance(pos, Units[i].pos) < Units[i].hitDist)
                 {
-                    Units[i].GetHit(1);
+                    Units[i].GetHit(owner, 1);
                     return true;
                 }
             }

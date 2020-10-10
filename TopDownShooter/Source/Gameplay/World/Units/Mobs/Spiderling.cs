@@ -55,7 +55,7 @@ namespace TopDownShooter
                     if (Globals.GetDistance(pos, temp.pos) < Grid.slotDims.X * 1.2f)
                     {
                         //can create a var in the specific mob class to change damage amounts and override
-                        temp.GetHit(1);
+                        temp.GetHit(this, 1);
                         dead = true;
                     }
                 }

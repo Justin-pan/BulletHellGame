@@ -56,6 +56,10 @@ namespace TopDownShooter
             Globals.normalEffect.Parameters["filterColor"].SetValue(Color.Black.ToVector4());
             Globals.normalEffect.CurrentTechnique.Passes[0].Apply();
 
+            string goldStr = "Gold = " + World.user.hero.gold;
+            Vector2 goldStrDims = font.MeasureString(goldStr);
+            Globals.spriteBatch.DrawString(font, goldStr, new Vector2(Globals.screenWidth/2 - goldStrDims.X/2, Globals.screenHeight - 50), Color.Black);
+
             string tempStr = "Score = " + GameGlobals.score;
             Vector2 strDims = font.MeasureString(tempStr);
             Globals.spriteBatch.DrawString(font, tempStr, new Vector2(Globals.screenWidth/2 - strDims.X/2, Globals.screenHeight - 35), Color.Black);

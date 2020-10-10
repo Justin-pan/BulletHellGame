@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -12,16 +12,19 @@ using Microsoft.Xna.Framework.Media;
 
 using System.Text;
 using System.Threading.Tasks;
+
 namespace TopDownShooter
 {
-    public class GameGlobals
+    public class PlayerValuePacket
     {
-        public static bool paused = false;
-        
-        public static int score = 0;
+        public int playerId;
 
-        public static PassObject PassProjectile, PassEffect, PassGold, PassMob, PassBuilding, PassSpawnPoint, CheckScroll;
+        public object value;       
 
-        // public static Notif RePathNotif;
+        public PlayerValuePacket(int PlayerID, object Value)
+        {
+            playerId = PlayerID;
+            value = Value;
+        }
     }
 }

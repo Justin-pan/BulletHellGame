@@ -19,7 +19,7 @@ namespace TopDownShooter
     {
         public bool dead;
 
-        public int ownerId;
+        public int ownerId, killValue;
 
         public float speed, hitDist, health, healthMax;
 
@@ -32,6 +32,8 @@ namespace TopDownShooter
             health = 1;
             healthMax = health;
 
+            killValue = 1;
+
             hitDist = 35.0f;
         }
 
@@ -41,13 +43,15 @@ namespace TopDownShooter
             base.Update(Offset);
         }
 
-        public virtual void GetHit(float Damage)
+        public virtual void GetHit(DestructibleObject Attacker, float Damage)
         {
             health -= Damage;
 
             if(health <= 0)
             {
                 dead = true;
+
+                GameGlobals.PassGold(new PlayerValuePacket(Attacker.ownerId, killValue));
             }
         }
 
